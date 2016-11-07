@@ -28,4 +28,5 @@ retenue 0 1 l retenue         ; on change le 0 en 1, on propage la retenue
 retenue _ 1 * halt-acceté     ; on a finit, en étant allé tout à gauche : on écrit la retenue, et c'est bon
 
 
-; Astuce pour charger le ruban avec un mot initial intéressant. $INITIAL_TAPE: 1001110
+; Astuce pour charger le ruban avec un mot initial intéressant.
+;$INITIAL_TAPE:1001110

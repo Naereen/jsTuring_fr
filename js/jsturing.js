@@ -5,12 +5,8 @@
  * With contributions from Erez Wanderman
  */
 
-/* Version 2.0 - January 2015 */
+/* Version 2.1 - November 2016 */
 /* Uses jquery (1.11.1) */
-
-/* TODO:
-     - factorial sample program ?
-*/
 
 
 var nDebugLevel = 0;
@@ -21,7 +17,7 @@ var bIsReset = false;       /* true if the machine has been reset, false if it i
 var sTape = "";             /* Contents of TM's tape. Stores all cells that have been visited by the head */
 var nTapeOffset = 0;        /* the logical position on TM tape of the first character of sTape */
 var nHeadPosition = 0;      /* the position of the TM's head on its tape. Initially zero; may be negative if TM moves to left */
-var sState = "0";
+var sState = "q0";
 var nSteps = 0;
 var nVariant = 0; /* Machine variant. 0 = standard infinite tape, 1 = tape infinite in one direction only */
 var hRunTimer = null;
@@ -38,8 +34,8 @@ var aUndoList = [];
 var nTextareaLines = -1;
 var oTextarea;
 var bIsDirty = true;    /* If true, source must be recompiled before running machine */
-var oNextLineMarker = $("<div id='NextLineMarker'>Next<div id='NextLineMarkerEnd'></div></div>");
-var oPrevLineMarker = $("<div id='PrevLineMarker'>Prev<div id='PrevLineMarkerEnd'></div></div>");
+var oNextLineMarker = $("<div id='NextLineMarker' title='Étape suivante'>Suiv<div id='NextLineMarkerEnd'></div></div>");
+var oPrevLineMarker = $("<div id='PrevLineMarker' title='Étape précédente'>Préc<div id='PrevLineMarkerEnd'></div></div>");
 var oPrevInstruction = null;
 var oNextInstruction = null;
 
@@ -51,7 +47,7 @@ function Step() {
     if( bIsDirty) Compile();
 
     bIsReset = false;
-    if( sState.substring(0,4).toLowerCase() == "halt" ) {
+    if(( sState.substring(0,4).toLowerCase() == "halt" ) || ( sState.substring(0,4).toLowerCase() == "stop" )) {
         /* debug( 1, "Warning: Step() called while in halt state" ); */
         SetStatusMessage( "Arrêté." );
         notifyUser( "Arrêté." );
@@ -773,15 +769,15 @@ function LoadSampleProgram( zName, zFriendlyName, bInitial )
         dataType: "text",
         success: function( sData, sStatus, oRequestObj ) {
             /* Load the default initial tape, if any */
-            // var oRegExp = new RegExp( ";.*\\$INITIAL_TAPE:? *(.+)$" );
-            var oRegExp = new RegExp( "\\$INITIAL_TAPE:? *(.+)$" );
+            // var oRegExp = new RegExp( "\\$INITIAL_TAPE:? *(.+)$" );
+            var oRegExp = new RegExp( ";.*\\$INITIAL_TAPE:? *(.+)$" );
             var aRegexpResult = oRegExp.exec( sData );
             if( aRegexpResult != null && aRegexpResult.length >= 2 ) {
                 debug( 4, "Parsed initial tape: '" + aRegexpResult + "' length: " + (aRegexpResult == null ? "null" : aRegexpResult.length) );
                 $("#InitialInput")[0].value = aRegexpResult[1];
-                sData = sData.replace( /^.*\$INITIAL_TAPE:.*$/m, "" );
+                // sData = sData.replace( /^.*\$INITIAL_TAPE:.*$/m, "" );
             }
-            $("#InitialState")[0].value = "0";
+            $("#InitialState")[0].value = "q0";
             nVariant = 0;
             $("#MachineVariant").val(0);
             VariantChanged();
@@ -919,7 +915,8 @@ function OnLoad() {
         LoadFromCloud( window.location.search.substring( 1 ) );
         window.history.replaceState( null, "", window.location.pathname );  /* Remove query string from URL */
     } else {
-        LoadSampleProgram( 'palindrome', 'Default program', true );
+        // LoadSampleProgram( 'palindrome', 'Default program', true );
+        LoadSampleProgram( 'TP4--Q3-1', 'TP4 - Q3.1 (ENSAI, 2016)', true );
         SetStatusMessage( 'Chargez un programme avec le menu, ou écrivez le votre, et cliquez sur "Lancer" !' );
     }
 }

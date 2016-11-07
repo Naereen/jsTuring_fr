@@ -72,5 +72,5 @@ q21a * * l q21a         ; pour être plus propre : on remet la tête de lecture 
 q21a _ _ r halt-accepté ; on est tout au début du nombre binaire de sortie : on a ENFIN terminé !
 
 
-; Astuce pour charger le ruban avec un mot initial interessant.
+; Astuce pour charger le ruban avec un mot initial intéressant.
 ;$INITIAL_TAPE:11010

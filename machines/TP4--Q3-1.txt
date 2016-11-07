@@ -16,4 +16,5 @@ q0 1 1 r q0
 q0 _ 1 * halt-accepte
 
 
-; Astuce pour charger le ruban avec un mot initial intéressant. $INITIAL_TAPE: 11111
+; Astuce pour charger le ruban avec un mot initial intéressant.
+;$INITIAL_TAPE:1111111

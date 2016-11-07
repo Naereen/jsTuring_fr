@@ -60,4 +60,5 @@ q7 _ _ r halt-accepte  ; on a finit de nettoyer, on termine en acceptant
 q7 * * l q7            ; on laisse en place les 0 et 1 déjà écrits
 
 
-; Astuce pour charger le ruban avec un mot initial intéressant. $INITIAL_TAPE: 100_1110
+; Astuce pour charger le ruban avec un mot initial intéressant.
+;$INITIAL_TAPE:100_1110
