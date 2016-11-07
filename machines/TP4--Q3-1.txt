@@ -1,6 +1,6 @@
 ; ENSAI - Cours de Calculabilité et Complexité
 ; Machine de Turing - TP4 - Q3.1
-; Utiliser ce code via le simulateur, à l'adresse http://morphett.info/turing/turing.html
+; Utiliser ce code via le simulateur, à l'adresse https://github.com/Naereen/jsTuring_fr
 
 ; Incrémentation unaire : ajouter 1 à un nombre unaire
 ; Entrée : un nombre unaire, n = 111...11 = 1^n

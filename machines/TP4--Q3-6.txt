@@ -1,6 +1,6 @@
 ; ENSAI - Cours de Calculabilité et Complexité
 ; Machine de Turing - TP4 - Q3.6
-; Utiliser ce code via le simulateur, à l'adresse http://morphett.info/turing/turing.html
+; Utiliser ce code via le simulateur, à l'adresse https://github.com/Naereen/jsTuring_fr
 
 ; Addition binaire : ajouter deux nombres binaires
 ; Entrée : deux nombres binaires, n et m, séparés par un seul symbole blanc.

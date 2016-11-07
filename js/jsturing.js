@@ -195,7 +195,7 @@ function Reset() {
     /* Initialise state */
     var sInitialState = $("#InitialState")[0].value;
     sInitialState = $.trim( sInitialState ).split(/\s+/)[0];
-    if( !sInitialState || sInitialState == "" ) sInitialState = "0";
+    if( !sInitialState || sInitialState == "" ) sInitialState = "q0";
     sState = sInitialState;
 
     /* Initialise variant */

@@ -39,7 +39,6 @@ Toutes les explications nécessaires sont fournis dans cette page.
 - [Certaines machines](https://github.com/Naereen/jsTuring_fr/search?q=TP4&type=Code&utf8=✓) sont les solutions d'un TP donné à l'[ENSAI, Rennes](http://www.ensai.fr/) en novembre 2016.
 
 ## TODO
-- traduire les titres.
 - traduire la doc en bas de page.
 - traduire les exemples donnés. Au moins utiliser q0 au lieu de 0
 

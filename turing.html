@@ -2,8 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf8">
-    <!-- <link rel="stylesheet" type="text/css" href="css/turing.min.css"> -->
-    <link rel="stylesheet" type="text/css" href="css/turing.css">
+    <link rel="stylesheet" type="text/css" href="css/turing.min.css">
     <link rel="stylesheet" type="text/css" href="css/textarea.min.css">
     <link rel="shortcut icon" type="image/png" href="favicon.png" />
 
@@ -49,7 +48,6 @@
                 Entrez quelque chose dans la zone de texte 'Entrée' : ce mot sera écrit sur le ruban avant le calcul (mot d'entrée).
                 Cliquez sur 'Réinitialiser' pour remettre la machine comme au début.
                 </li>
-                <!-- FIXME translate all the textarea buttons -->
 
                 <li>
                 Cliquez sur 'Lancer' pour commencer le calcul de la machine de Turing, et l'exécuter jusqu'à ce qu'elle termine (si elle termine...).
@@ -64,8 +62,7 @@
   <div id="Machine">
    <div id="MachineTapeContainer">
     <div class="BoxTitle"><a href="#Machine">Ruban</a></div>
-    <!-- FIXME translate all the title="..." -->
-    <div id="MachineTape" class="MachineStatusBox" title="This is the Turing machine's tape. The head position is indicated by the highlighted cell and arrow.">
+    <div id="MachineTape" class="MachineStatusBox" title="Ceci est le ruban de la machine de Turing. La position de la tête de lecture est indiquée par la cellule colorée, et par la flèche.">
      <!-- the following pre elements must be on a single line with no whitespace between them !-->
      <div id="RunningTapeDisplay"><div id="TapeValues"><pre id="LeftTape" class="tape"></pre><div id="ActiveTapeArea"><pre id="ActiveTape" class="tape"> </pre><div id="MachineHead"><div class="HeadTop"></div><div class="HeadBody">Tête</div></div></div><pre id="RightTape" class="tape"></pre></div></div>
     </div> <!-- div MachineTape !-->
@@ -78,14 +75,14 @@
       <div id="MachineStatusMsgBg"></div>
     </div>
 
-    <div id="MachineStateContainer" class="MachineStatusContainer" title="This is the Turing machine's current state">
+    <div id="MachineStateContainer" class="MachineStatusContainer" title="Ceci indique l'état courant de la machine.">
      <div class="BoxTitle">État courant</div>
      <div id="MachineState" class="MachineStatusBox">
  - 
      </div> <!-- div MachineState !-->
     </div> <!-- div MachineStateContainer !-->
 
-    <div id="MachineStepsContainer" class="MachineStatusContainer" title="This is the number of steps executed by the machine since starting">
+    <div id="MachineStepsContainer" class="MachineStatusContainer" title="Ceci est le nombre d'étapes effectuées depuis le début du calcul (nombre total de transitions empruntées)">
      <div class="BoxTitle">Étapes</div>
      <div id="MachineSteps" class="MachineStatusBox">
  - 
@@ -106,7 +103,7 @@
          </div>
          <div id="tabackground">
 <!-- no indenting, because text inside textarea is verbatim !-->
-<textarea id="Source" wrap="off" oninput="TextareaChanged();" onscroll="UpdateTextareaScroll();" onblur="Compile();" title="This is the Turing machine's program. See documentation below for syntax.">
+<textarea id="Source" wrap="off" oninput="TextareaChanged();" onscroll="UpdateTextareaScroll();" onblur="Compile();" title="Ceci est le code de la machine de Turing. Voir la documentation plus bas pour les détails de la syntaxe.">
 ; Chargez un programme avec le menu, ou écrivez le votre !
 </textarea>
          </div>
@@ -122,29 +119,29 @@
                     </div>
 
                     <div id="MachineButtonsBlock">
-                        <button id="RunButton" onclick="RunButton();" title="Start the machine running">Lancer</button> <!-- &#x25b8; !--> <!-- Unicode 'play' symbol !-->
-                         <span title="If enabled, runs as fast as your browser &amp; computer allow"><input type="checkbox" id="SpeedCheckbox" onclick="SpeedCheckbox();">Vitesse max</span><br>
-                        <button id="StopButton" onclick="StopButton();" disabled="disabled" title="Pause the machine when running">Pause</button><br>
+                        <button id="RunButton" onclick="RunButton();" title="Commencer l'exécution de la machine">Lancer</button> <!-- &#x25b8; !--> <!-- Unicode 'play' symbol !-->
+                         <span title="Si cette option est activée, la simulation va aussi rapidement que possible (aussi vite que le peut votre ordinateur). Par défaut, les transitions sont lentes, pour voir ce qu'il se passe."><input type="checkbox" id="SpeedCheckbox" onclick="SpeedCheckbox();">Vitesse max</span><br>
+                        <button id="StopButton" onclick="StopButton();" disabled="disabled" title="Mettre en pause la machine durant son exécutioin">Pause</button><br>
                         <!-- &#x25fe; !-->
-                         <button id="UndoButton" onclick="Undo();" title="Undo one machine step" style="float: right;">Annuler</button>
-                         <button id="StepButton" onclick="StepButton();" title="Run the machine for a single step and the pause">Étape</button><br>
+                         <button id="UndoButton" onclick="Undo();" title="Annuler une étape de la machine (revenir en arrière)" style="float: right;">Annuler</button>
+                         <button id="StepButton" onclick="StepButton();" title="Effectuer une seule étape de la machine puis la mettre en pause">Étape</button><br>
                         <!-- &#x25b8;&#x2759; !-->
-                         <button id="ResetButton" onclick="ResetButton();" title="Reset the machine and tape to the initial state">Réinitialiser</button> <!-- &#x2759;&#x23ea; !-->
+                         <button id="ResetButton" onclick="ResetButton();" title="Réinitialiser la machine et le ruban dans son état initial">Réinitialiser</button> <!-- &#x2759;&#x23ea; !-->
 
-                        <div id="InitialTapeDisplay" title="This initial data will be loaded on the tape when the machine starts">
+                        <div id="InitialTapeDisplay" title="Ce mot sera écrit sur le ruban avant que la machine commence le calcul.">
                             Mot d'entrée :<input type="text" id="InitialInput" value="">
                         </div>
 
                         <div style="font-size: small;">
-                            <a href="javascript:" onclick="$('#AdvancedOptions').slideToggle();" title="Show advanced machine options">Options avancées</a>
+                            <a href="javascript:" onclick="$('#AdvancedOptions').slideToggle();" title="Montrer les options avancées pour la machine (nom de l'état initial, ruban mono- ou bi-infini).">Options avancées</a>
                         </div>
 
                         <div id="AdvancedOptions" style="display: none; margin-top: 0.25em;">
-                            <div id="InitialStateDisplay" title="This is the state that the machine will start in" style="margin-bottom: 0.5em;">
+                            <div id="InitialStateDisplay" title="Ceci correspond à l'état dans lequel commence la machine." style="margin-bottom: 0.5em;">
                                 Nom de l'état initial :<input type="text" id="InitialState" value="q0">
                             </div>
 
-                            <div title="Choose between different Turing machine variants">
+                            <div title="Deux variantes de machines de Turing sont proposées.">
                                 Variante de la machine : <select onchange="VariantChanged();" id="MachineVariant">
                                     <option value="0" selected="selected">
                                         Standard
@@ -161,29 +158,30 @@
                         <br>
 
                         <div id="LoadBlock">
-                            <a href="javascript:" onclick="$('#LoadMenu').slideToggle();" title="Load a pre-prepared example program">Chargez un exemple</a>
+                            <a href="javascript:" onclick="$('#LoadMenu').slideToggle();" title="Charger un exemple pré-écrit de programme">Chargez un exemple</a>
 
                             <div id="LoadMenu">
+    <!-- FIXME translate all the names -->
   <ul>
-      <li><a href="javascript:" onclick="LoadSampleProgram('palindrome', 'Palindrome detector');">Palindrome detector</a></li>
+      <li><a href="javascript:" onclick="LoadSampleProgram('palindrome', 'Détecteur de palindromes');">Palindrome detector</a></li>
 
-      <li><a href="javascript:" onclick="LoadSampleProgram('binaryadd', 'Binary addition machine');">Binary addition</a></li>
+      <li><a href="javascript:" onclick="LoadSampleProgram('binaryadd', 'Calcul de l\'addition binaire');">Addition binaire</a></li>
 
-      <li><a href="javascript:" onclick="LoadSampleProgram('binarymult', 'Binary multiplication machine');">Binary multiplication</a></li>
+      <li><a href="javascript:" onclick="LoadSampleProgram('binarymult', 'Calcul de la multiplication binaire');">Multiplication binaire</a></li>
 
-      <li><a href="javascript:" onclick="LoadSampleProgram('bin2dec', 'Binary to decimal conversion machine');">Binary to decimal conversion</a></li>
+      <li><a href="javascript:" onclick="LoadSampleProgram('bin2dec', 'Conversion de binaire vers décimal');">Conversion de binaire vers décimal</a></li>
 
-      <li><a href="javascript:" onclick="LoadSampleProgram('turingsequence', 'Turing\'s sequence machine');">Turing's sequence machine</a></li>
+      <li><a href="javascript:" onclick="LoadSampleProgram('turingsequence', 'Suite de Turing');">Suite de Turing</a></li>
 
-      <li><a href="javascript:" onclick="LoadSampleProgram('parentheses', 'Parentheses checker machine');">Parentheses checker</a></li>
+      <li><a href="javascript:" onclick="LoadSampleProgram('parentheses', 'Vérificateur de parenthèses');">Vérificateur de parenthèses</a></li>
 
-      <li><a href="javascript:" onclick="LoadSampleProgram('reversepolishboolean', 'Reverse Polish Boolean calculator');">Reverse Polish Boolean calculator</a></li>
+      <li><a href="javascript:" onclick="LoadSampleProgram('reversepolishboolean', 'Calculette binaire en Notation Polonaise Inversée');">Calculette binaire en Notation Polonaise Inversée</a></li>
 
-      <li><a href="javascript:" onclick="LoadSampleProgram('primetest', 'Primality test machine');">Primality test</a></li>
+      <li><a href="javascript:" onclick="LoadSampleProgram('primetest', 'Test de primalité');">Test de primalité</a></li>
 
-      <li><a href="javascript:" onclick="LoadSampleProgram('4statebeaver', '4-state busy beaver');">4-state busy beaver</a></li>
+      <li><a href="javascript:" onclick="LoadSampleProgram('4statebeaver', 'Castor affairé à 4 états');">Castor affairé à 4 états</a></li>
 
-      <li><a href="javascript:" onclick="LoadSampleProgram('universal', 'Universal Turing machine');">Universal Turing machine</a></li>
+      <li><a href="javascript:" onclick="LoadSampleProgram('universal', 'Machine de Turing Universelle');">Machine de Turing Universelle</a></li>
       <!--<li><a href="javascript:" onclick="LoadSampleProgram('error', 'Error machine');">Error</a></li>!--><!-- for testing !-->
   </ul>
   <span style="font-size: x-small;"><a href="javascript:" onclick="$('#LoadMenu').hide();">[Fermer]</a></span>
@@ -192,7 +190,7 @@
                         <br>
 
                         <div id="LoadBlock2">
-                            <a href="javascript:" onclick="$('#LoadMenu2').slideToggle();" title="Load a pre-prepared example program">Correction TP4 (ENSAI, 2016)</a>
+                            <a href="javascript:" onclick="$('#LoadMenu2').slideToggle();" title="Charger la correction d'une question de ce TP4 (ENSAI, 2016)">Correction TP4 (ENSAI, 2016)</a>
 
                             <div id="LoadMenu2">
   <ul>
@@ -212,7 +210,7 @@
                             </div>
                         </div><!-- div inputProg !-->
                         <br>
-                        <a href="javascript:" onclick="SaveToCloud();" title="Save your machine to the cloud for sharing or bookmarking">Sauvegarder dans les nuages</a> <!--...<a href="javascript:" onclick="testsave(true);">test ok</a>...<a href="javascript:" onclick="testsave(false);">test error</a>!--> <!-- for testing !-->
+                        <a href="javascript:" onclick="SaveToCloud();" title="Sauvegarder la machine actuelle dans les nuages, pour la partager ou la conserver (dans un favori par exemple). Utilise le service https://gist.github.com/">Sauvegarder dans les nuages</a> <!--...<a href="javascript:" onclick="testsave(true);">test ok</a>...<a href="javascript:" onclick="testsave(false);">test error</a>!--> <!-- for testing !-->
 
                         <div id="SaveStatus">
                             <div id="SaveStatusFg">

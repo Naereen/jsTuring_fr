@@ -1,6 +1,6 @@
 ; ENSAI - Cours de Calculabilité et Complexité
 ; Machine de Turing - TP4 - Q3.5
-; Utiliser ce code via le simulateur, à l'adresse http://morphett.info/turing/turing.html
+; Utiliser ce code via le simulateur, à l'adresse https://github.com/Naereen/jsTuring_fr
 
 ; Convertit un nombre n écrit en binaire vers son écriture en décimal
 ; L'idée est simple :
@@ -72,4 +72,5 @@ q21a * * l q21a         ; pour être plus propre : on remet la tête de lecture 
 q21a _ _ r halt-accepté ; on est tout au début du nombre binaire de sortie : on a ENFIN terminé !
 
 
-; Astuce pour charger le ruban avec un mot initial intéressant. $INITIAL_TAPE: 11010
+; Astuce pour charger le ruban avec un mot initial interessant.
+;$INITIAL_TAPE:11010
