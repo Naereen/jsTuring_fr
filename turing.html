@@ -2,7 +2,8 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf8">
-    <link rel="stylesheet" type="text/css" href="css/turing.min.css">
+    <!-- <link rel="stylesheet" type="text/css" href="css/turing.min.css"> -->
+    <link rel="stylesheet" type="text/css" href="css/turing.css">
     <link rel="stylesheet" type="text/css" href="css/textarea.min.css">
     <link rel="shortcut icon" type="image/png" href="favicon.png" />
 
@@ -16,8 +17,8 @@
      <link rel="stylesheet" type="text/css" href="css/ie-fixes.min.css">
     <![endif]--><!-- Conditional comments for old IE versions. Adjust or disable line highlighting and load Javscript polyfills if needed for old IE versions. !-->
 
-    <script type="text/javascript" defer="defer" src="js/jsturing.js">
-</script>
+    <script type="text/javascript" defer="defer" src="js/jsturing.js"></script>
+    <script type="text/javascript" defer="defer" src="js/notify.js"></script>
 </head>
 
 <body onload="OnLoad();">
@@ -26,13 +27,14 @@
 
         <div class="backlinks">
             [
-            <a href="http://morphett.info/">Page de l'auteur</a>,
-            <a href="https://github.com/Naereen/jsTuring_fr">Page de la traduction</a>,
-            <a href="http://rubens.ens-lyon.fr/">Projet RubENS</a>,
+            <a href="http://morphett.info/">Auteur</a>,
+            <a href="https://github.com/Naereen/jsTuring_fr">Traduction</a>,
+            <a href="http://rubens.ens-lyon.fr/">machine de Turing en LÉGO ?</a>
             ]
         </div>
 
         <div id="IntroText">
+            <h2>Bienvenue</h2>
             Ceci est un simulateur de <a href="https://en.wikipedia.org/wiki/Machine_de_Turing">Machine de Turing</a> simulator.
             Pour s'en servir :<br>
 
@@ -61,7 +63,7 @@
 
   <div id="Machine">
    <div id="MachineTapeContainer">
-    <div class="BoxTitle">Ruban</div>
+    <div class="BoxTitle"><a href="#Machine">Ruban</a></div>
     <!-- FIXME translate all the title="..." -->
     <div id="MachineTape" class="MachineStatusBox" title="This is the Turing machine's tape. The head position is indicated by the highlighted cell and arrow.">
      <!-- the following pre elements must be on a single line with no whitespace between them !-->
@@ -84,7 +86,7 @@
     </div> <!-- div MachineStateContainer !-->
 
     <div id="MachineStepsContainer" class="MachineStatusContainer" title="This is the number of steps executed by the machine since starting">
-     <div class="BoxTitle">Nombres d'étapes</div>
+     <div class="BoxTitle">Étapes</div>
      <div id="MachineSteps" class="MachineStatusBox">
  - 
      </div> <!-- div MachineSteps !-->
@@ -121,7 +123,7 @@
 
                     <div id="MachineButtonsBlock">
                         <button id="RunButton" onclick="RunButton();" title="Start the machine running">Lancer</button> <!-- &#x25b8; !--> <!-- Unicode 'play' symbol !-->
-                         <span title="If enabled, runs as fast as your browser &amp; computer allow"><input type="checkbox" id="SpeedCheckbox" onclick="SpeedCheckbox();">Pleine vitesse</span><br>
+                         <span title="If enabled, runs as fast as your browser &amp; computer allow"><input type="checkbox" id="SpeedCheckbox" onclick="SpeedCheckbox();">Vitesse max</span><br>
                         <button id="StopButton" onclick="StopButton();" disabled="disabled" title="Pause the machine when running">Pause</button><br>
                         <!-- &#x25fe; !-->
                          <button id="UndoButton" onclick="Undo();" title="Undo one machine step" style="float: right;">Annuler</button>

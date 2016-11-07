@@ -54,6 +54,7 @@ function Step() {
     if( sState.substring(0,4).toLowerCase() == "halt" ) {
         /* debug( 1, "Warning: Step() called while in halt state" ); */
         SetStatusMessage( "Arrêté." );
+        notifyUser( "Arrêté." );
         EnableControls( false, false, false, true, true, true, true );
         return( false );
     }
@@ -78,6 +79,7 @@ function Step() {
         /* No matching rule found; halt */
         debug( 1, "Warning: no instruction found for state '" + sState + "' symbol '" + sHeadSymbol + "'; halting" );
         SetStatusMessage( "Arrêté. Aucune règle pour l'état '" + sState + "' et le symbole '" + sHeadSymbol + "'.", 2 );
+        notifyUser( "Arrêté. Aucune règle pour l'état '" + sState + "' et le symbole '" + sHeadSymbol + "'.", 2 );
         sNewState = "halt";
         sNewSymbol = sHeadSymbol;
         nAction = 0;
@@ -106,12 +108,14 @@ function Step() {
     if( sNewState.substring(0,4).toLowerCase() == "halt" ) {
         if( oInstruction != null ) {
             SetStatusMessage( "Arrêté." );
+            notifyUser( "Arrêté." );
         }
         EnableControls( false, false, false, true, true, true, true );
         return( false );
     } else {
         if( oInstruction.breakpoint ) {
             SetStatusMessage( "Stoppé au point d'arrêt à la ligne " + (nLineNumber+1) );
+            notifyUser( "Stoppé au point d'arrêt à la ligne " + (nLineNumber+1) );
             EnableControls( true, true, false, true, true, true, true );
             return( false );
         } else {
@@ -466,9 +470,11 @@ function LoadMachineSnapshot( oObj )
     aUndoList = [];
     if( sState.substring(0,4).toLowerCase() == "halt" ) {
         SetStatusMessage( "Machine chargée. Arrêtée.", 1 );
+        notifyUser( "Machine chargée. Arrêtée.", 1 );
         EnableControls( false, false, false, true, true, true, true );
     } else {
         SetStatusMessage( "Machine chargée et prête.", 1  );
+        notifyUser( "Machine chargée et prête.", 1  );
         EnableControls( true, true, false, true, true, true, true );
     }
     TextareaChanged();
@@ -616,6 +622,7 @@ function RunButton() {
 function StopButton() {
     if( hRunTimer != null ) {
         SetStatusMessage( "Pausé; cliquez 'Lancer' ou 'Étape' pour continuer." );
+        notifyUser( "Pausé; cliquez 'Lancer' ou 'Étape' pour continuer." );
         EnableControls( true, true, false, true, true, true, true );
         StopTimer();
     }
@@ -623,6 +630,7 @@ function StopButton() {
 
 function ResetButton() {
     SetStatusMessage( "Machine réinitialisée. Cliquez 'Lancer' ou 'Étape' pour commencer." );
+    notifyUser( "Machine réinitialisée. Cliquez 'Lancer' ou 'Étape' pour commencer." );
     Reset();
     EnableControls( true, true, false, true, true, true, false );
 }
@@ -635,7 +643,7 @@ function VariantChanged() {
   var dropdown = $("#MachineVariant")[0];
   selected = Number(dropdown.options[dropdown.selectedIndex].value);
   var descriptions = {
-    0: "Machine de Turing standard Turing avec un ruban infini dans les deux directions.",
+    0: "Machine de Turing standard, avec un ruban infini dans les deux directions.",
     1: "Machine de Turing avec un ruban infini dans seulement une direction (utilisée et décrite notamment dans le livre par <a href='http://math.mit.edu/~sipser/book.html'>Michael Sipser</a>)."
   };
   $("#MachineVariantDescription").html( descriptions[selected] );
@@ -666,6 +674,7 @@ function loadSuccessCallback( oData )
     if( !oData || !oData.files || !oData.files["machine.json"] || !oData.files["machine.json"].content ) {
         debug( 1, "Error: Load AJAX request succeeded but can't find expected data." );
         SetStatusMessage( "Erreur lors du chargement de la machine sauvegardée :( :(", 2 );
+        notifyUser( "Erreur lors du chargement de la machine sauvegardée :( :(", 2 );
         return;
     }
     var oUnpackedObject;
@@ -674,6 +683,7 @@ function loadSuccessCallback( oData )
     } catch( e ) {
         debug( 1, "Error: Exception when unpacking JSON: " + e );
         SetStatusMessage( "Erreur lors du chargement de la machine sauvegardée :( :(", 2 );
+        notifyUser( "Erreur lors du chargement de la machine sauvegardée :( :(", 2 );
         return;
     }
     LoadMachineSnapshot( oUnpackedObject );
@@ -683,6 +693,7 @@ function loadErrorCallback( oData, sStatus, oRequestObj )
 {
     debug( 1, "Error: Load failed. AJAX request to Github failed. HTTP response " + oRequestObj );
     SetStatusMessage( "Erreur lors du chargement de la machine sauvegardée :( :(", 2 );
+    notifyUser( "Erreur lors du chargement de la machine sauvegardée :( :(", 2 );
 }
 
 function SaveToCloud() {
@@ -752,6 +763,7 @@ function LoadSampleProgram( zName, zFriendlyName, bInitial )
 {
     debug( 1, "Load '" + zName + "'" );
     SetStatusMessage( "Chargement du programme d'exemple..." );
+    notifyUser( "Chargement du programme d'exemple..." );
     var zFileName = "machines/" + zName + ".txt";
 
     StopTimer();   /* Stop machine, if currently running */
@@ -782,11 +794,15 @@ function LoadSampleProgram( zName, zFriendlyName, bInitial )
 
             /* Reset the machine  */
             Reset();
-            if( !bInitial ) SetStatusMessage( zFriendlyName + " bien chargée", 1 );
+            if( !bInitial ) {
+                SetStatusMessage( zFriendlyName + " bien chargée", 1 );
+                notifyUser( zFriendlyName + " bien chargée", 1 );
+            }
         },
         error: function( oData, sStatus, oRequestObj ) {
             debug( 1, "Error: Load failed. HTTP response " + oRequestObj.status + " " + oRequestObj.statusText );
             SetStatusMessage( "Erreur en chargeant " + zFriendlyName + " :(", 2 );
+            notifyUser( "Erreur en chargeant " + zFriendlyName + " :(", 2 );
         }
     });
 
@@ -899,12 +915,13 @@ function OnLoad() {
     VariantChanged(); /* Set up variant description */
 
     if( window.location.search != "" ) {
-        SetStatusMessage( "Loading saved machine..." );
+        SetStatusMessage( "Chargement de la machine sauvegardée..." );
+        notifyUser( "Chargement de la machine sauvegardée..." );
         LoadFromCloud( window.location.search.substring( 1 ) );
         window.history.replaceState( null, "", window.location.pathname );  /* Remove query string from URL */
     } else {
         LoadSampleProgram( 'palindrome', 'Default program', true );
-        SetStatusMessage( 'Load or write a Turing machine program and click Run!' );
+        SetStatusMessage( 'Chargez un programme avec le menu, ou écrivez le votre, et cliquez sur "Lancer" !' );
     }
 }
 

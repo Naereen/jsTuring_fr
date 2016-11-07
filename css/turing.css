@@ -254,8 +254,8 @@ button {
   content: "";
   width: 0;
   height: 0;
-  border-left: 17px solid transparent;
-  border-right: 17px solid transparent;
+  border-left: 21px solid transparent;
+  border-right: 21px solid transparent;
   border-bottom: 10px solid #333333;
 }
 
@@ -267,14 +267,14 @@ button {
   height: 0;
   margin-top:1px;
   margin-left:2px;
-  border-left: 15px solid transparent;
-  border-right: 15px solid transparent;
+  border-left: 19px solid transparent;
+  border-right: 19px solid transparent;
   border-bottom: 9px solid #ff9933;
 }
 
 .HeadBody {
-  width: 32px;
-  height: 14px;
+  width: 40px;
+  height: 18px;
   text-align: center;
   font-size: small;
   background: #ff9933;
