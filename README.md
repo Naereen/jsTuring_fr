@@ -13,24 +13,25 @@ Toutes les explications nécessaires sont fournis dans cette page.
 ## Organisation du dépôt
 
 ### Page web (fichiers HTML)
-- [turing.html](https://naereen.github.io/jsTuring_fr/turing.html) ([code de turing.html](turing.html)) : page web pour le simulateur.
+- [`turing.html`](https://naereen.github.io/jsTuring_fr/turing.html) ([`code de turing.html`](turing.html)) : page web pour le simulateur.
 
 ### Exemples de Machines
-- Dans le dossier [machines](machines/), chaque fichier `.txt` est un exemple de machine de Turing.
-<!-- TODO translate the given examples ? At least change 0 to q0 -->
+- Dans le dossier [`machines/`](machines/), chaque fichier `.txt` est un exemple de machine de Turing. Par exemple : [`concatenate.txt`](https://github.com/Naereen/jsTuring_fr/blob/gh-pages/machines/concatenate.txt) est une machine qui transforme `1111..1_111..1` = `1^n_1^m` en 
 
 ### Scripts (Javascript)
-- [`jsturing.js`](js/jsturing.js): Main Javascript code for the Turing machine
+- [`jsturing.js`](js/jsturing.js) : programme principal, en Javascript, pour le simulateur de machines de Turing. Complexe, mais très commenté.
+- [`notify.js`](js/notify.js) : petit programme pour afficher des notifications bureau (quand la machine a terminé le calcul, par exemple).
 
 #### Dépendances
-- [`jquery-1.11.1.js`](js/jquery-1.11.1.js), [`jquery-1.11.1.min.js`](js/jquery-1.11.1.min.js): JQuery file, used by jsturing.js
+- [`jquery-1.11.1.js`](js/jquery-1.11.1.js), [`jquery-1.11.1.min.js`](js/jquery-1.11.1.min.js) : JQuery, requis par [`jsturing.js`](js/jsturing.js)
 
 ### Feuilles de style (CSS)
 - [`turing.css`](css/turing.css) : style pour les éléments de [turing.html](https://naereen.github.io/jsTuring_fr/turing.html).
 - [`textarea.css`](css/textarea.css) : style pour le surlignage des lignes 'Suivante' et 'Précédente' dans la zone de texte du programme de la machine.
 
-#### Support d'Internet Explorer
+#### Support d'Internet Explorer ?
 - [`ie-fixes.css`](css/ie-fixes.css), [`polyfills.js`](js/polyfills.js), [`json2.js`](js/json2.js) : Corrections de bogues pour supporter les vieilles versions d'Internet Explorer (< 10).
+- Normalement, n'importe quel navigateur assez récent suffit à utiliser [`turing.html`](https://naereen.github.io/jsTuring_fr/turing.html) (mais tout le monde sait que [Mozilla Firefox](https://www.mozilla.org/fr/firefox/new/) est le meilleur navigateur).
 
 ----
 
@@ -38,6 +39,7 @@ Toutes les explications nécessaires sont fournis dans cette page.
 - traduire les titres.
 - traduire la doc en bas de page.
 - ajouter mes machines (solutions d'un TP donné à l'[ENSAI, Rennes](http://www.ensai.fr/) en novembre 2016).
+- traduire les exemples donnés. Au moins utiliser q0 au lieu de 0
 
 ----
 
