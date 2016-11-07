@@ -34,6 +34,13 @@ Toutes les explications nécessaires sont fournis dans cette page.
 
 ----
 
+## TODO
+- traduire les titres.
+- traduire la doc en bas de page.
+- ajouter mes machines (solutions d'un TP donné à l'[ENSAI, Rennes](http://www.ensai.fr/) en novembre 2016).
+
+----
+
 ## :scroll: Licence ? [![GitHub license](https://img.shields.io/github/license/Naereen/jsTuring_fr.svg)](https://github.com/Naereen/jsTuring_fr/blob/master/LICENSE)
 Distribué sous la [licence libre MIT](https://lbesson.mit-license.org/) (fichier [LICENSE](LICENSE) en anglais).
 

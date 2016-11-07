@@ -606,7 +606,7 @@ function StepButton() {
 }
 
 function RunButton() {
-    SetStatusMessage( "Running..." );
+    SetStatusMessage( "Calcul en cours..." );
     /* Make sure that the step interval is up-to-date */
     SpeedCheckbox();
     EnableControls( false, false, true, false, false, false, false );
@@ -615,14 +615,14 @@ function RunButton() {
 
 function StopButton() {
     if( hRunTimer != null ) {
-        SetStatusMessage( "Paused; click 'Run' or 'Step' to resume." );
+        SetStatusMessage( "Pausé; cliquez 'Lancer' ou 'Étape' pour continuer." );
         EnableControls( true, true, false, true, true, true, true );
         StopTimer();
     }
 }
 
 function ResetButton() {
-    SetStatusMessage( "Machine reset. Click 'Run' or 'Step' to start." );
+    SetStatusMessage( "Machine réinitialisée. Cliquez 'Lancer' ou 'Étape' pour commencer." );
     Reset();
     EnableControls( true, true, false, true, true, true, false );
 }
@@ -635,8 +635,8 @@ function VariantChanged() {
   var dropdown = $("#MachineVariant")[0];
   selected = Number(dropdown.options[dropdown.selectedIndex].value);
   var descriptions = {
-    0: "Standard Turing machine with tape infinite in both directions",
-    1: "Turing machine with tape infinite in one direction only (as used in, eg, <a href='http://math.mit.edu/~sipser/book.html'>Sipser</a>)"
+    0: "Machine de Turing standard Turing avec un ruban infini dans les deux directions.",
+    1: "Machine de Turing avec un ruban infini dans seulement une direction (utilisée et décrite notamment dans le livre par <a href='http://math.mit.edu/~sipser/book.html'>Michael Sipser</a>)."
   };
   $("#MachineVariantDescription").html( descriptions[selected] );
 }
@@ -665,7 +665,7 @@ function loadSuccessCallback( oData )
 {
     if( !oData || !oData.files || !oData.files["machine.json"] || !oData.files["machine.json"].content ) {
         debug( 1, "Error: Load AJAX request succeeded but can't find expected data." );
-        SetStatusMessage( "Error loading saved machine :(", 2 );
+        SetStatusMessage( "Erreur lors du chargement de la machine sauvegardée :( :(", 2 );
         return;
     }
     var oUnpackedObject;
@@ -673,7 +673,7 @@ function loadSuccessCallback( oData )
         oUnpackedObject = JSON.parse( oData.files["machine.json"].content );
     } catch( e ) {
         debug( 1, "Error: Exception when unpacking JSON: " + e );
-        SetStatusMessage( "Error loading saved machine :(", 2 );
+        SetStatusMessage( "Erreur lors du chargement de la machine sauvegardée :( :(", 2 );
         return;
     }
     LoadMachineSnapshot( oUnpackedObject );
@@ -682,14 +682,14 @@ function loadSuccessCallback( oData )
 function loadErrorCallback( oData, sStatus, oRequestObj )
 {
     debug( 1, "Error: Load failed. AJAX request to Github failed. HTTP response " + oRequestObj );
-    SetStatusMessage( "Error loading saved machine :(", 2 );
+    SetStatusMessage( "Erreur lors du chargement de la machine sauvegardée :( :(", 2 );
 }
 
 function SaveToCloud() {
     SetSaveMessage( "Saving...", null );
     var oUnpackedObject = SaveMachineSnapshot();
     var gistApiInput = {
-        "description": "Saved Turing machine state from http://morphett.info/turing/turing.html",
+        "description": "État d'une machine de Turing machine sauvegardé depuis https://naereen.github.io/jsTuring_fr/turing.html",
         "public": false,
         "files": {
             "machine.json": {
@@ -702,7 +702,7 @@ function SaveToCloud() {
         type: "POST",
         data: JSON.stringify(gistApiInput),
         dataType: "json",
-        contentType: 'application/json; charset=utf-8',
+        contentType: "application/json; charset=utf-8",
         success: saveSuccessCallback,
         error: saveErrorCallback
     });
@@ -713,7 +713,7 @@ function saveSuccessCallback( oData )
     if( oData && oData.id ) {
         var sURL = window.location.href.replace(/[\#\?].*/,"");     /* Strip off any hash or query parameters, ie "?12345678" */
         sURL += "?" + oData.id;                                 /* Append gist id as query string */
-        //var sURL = "http://morphett.info/turing/turing.html" + "?" + oData.id;
+        //var sURL = "https://naereen.github.io/jsTuring_fr/turing.html" + "?" + oData.id;
         debug( 1, "Save successful. Gist ID is " + oData.id + " Gist URL is " + oData.url /*+ ", user URL is " + sURL */ );
 
         var oNow = new Date();
@@ -751,7 +751,7 @@ function ClearSaveMessage() {
 function LoadSampleProgram( zName, zFriendlyName, bInitial )
 {
     debug( 1, "Load '" + zName + "'" );
-    SetStatusMessage( "Loading sample program..." );
+    SetStatusMessage( "Chargement du programme d'exemple..." );
     var zFileName = "machines/" + zName + ".txt";
 
     StopTimer();   /* Stop machine, if currently running */
@@ -782,11 +782,11 @@ function LoadSampleProgram( zName, zFriendlyName, bInitial )
 
             /* Reset the machine  */
             Reset();
-            if( !bInitial ) SetStatusMessage( zFriendlyName + " successfully loaded", 1 );
+            if( !bInitial ) SetStatusMessage( zFriendlyName + " bien chargée", 1 );
         },
         error: function( oData, sStatus, oRequestObj ) {
             debug( 1, "Error: Load failed. HTTP response " + oRequestObj.status + " " + oRequestObj.statusText );
-            SetStatusMessage( "Error loading " + zFriendlyName + " :(", 2 );
+            SetStatusMessage( "Erreur en chargeant " + zFriendlyName + " :(", 2 );
         }
     });
 
