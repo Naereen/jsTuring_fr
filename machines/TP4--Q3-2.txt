@@ -1,0 +1,19 @@
+; ENSAI - Cours de Calculabilité et Complexité
+; Machine de Turing - TP4 - Q3.2
+; Utiliser ce code via le simulateur, à l'adresse http://morphett.info/turing/turing.html
+
+; Addition unaire : ajouter deux nombres unaires
+; Entrée : deux nombres unaires, n = 111...11 = 1^n et m = 11..1 = 1^m, séparés par un seul symbole blanc.
+; Sortie : le nombre unaire n+m+1 = n+1+m, = 111...111 = 1^(n+1+m)
+; Exemple entrée : 11 111  (= 2 et 3)
+; Exemple sortie : 111111 (= 5+1 = 6)
+
+; État q0
+; D'abord, on lit sans modifier tous les 1 du 1er mot, vers la droite
+q0 1 1 r q0
+
+; Ensuite, au premier _ on a finit de lire le 1er mot, on écrit un 1 de plus, on accepte
+q0 _ 1 * halt-accepte
+
+
+; Astuce pour charger le ruban avec un mot initial intéressant. $INITIAL_TAPE: 111_1111

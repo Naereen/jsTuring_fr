@@ -18,7 +18,7 @@
     <![endif]--><!-- Conditional comments for old IE versions. Adjust or disable line highlighting and load Javscript polyfills if needed for old IE versions. !-->
 
     <script type="text/javascript" defer="defer" src="js/jsturing.js"></script>
-    <script type="text/javascript" defer="defer" src="js/notify.js"></script>
+    <script type="text/javascript" defer="defer" src="js/notify.min.js"></script>
 </head>
 
 <body onload="OnLoad();">
@@ -183,10 +183,32 @@
 
       <li><a href="javascript:" onclick="LoadSampleProgram('4statebeaver', '4-state busy beaver');">4-state busy beaver</a></li>
 
-      <li><a href="javascript:" onclick="LoadSampleProgram('universal', 'Universal Turing machine');">Universal Turing machine</a></li><!--<li><a href="javascript:" onclick="LoadSampleProgram('error', 'Error machine');">Error</a></li>!--><!-- for testing !-->
-      <!-- FIXME add my machines -->
+      <li><a href="javascript:" onclick="LoadSampleProgram('universal', 'Universal Turing machine');">Universal Turing machine</a></li>
+      <!--<li><a href="javascript:" onclick="LoadSampleProgram('error', 'Error machine');">Error</a></li>!--><!-- for testing !-->
   </ul>
   <span style="font-size: x-small;"><a href="javascript:" onclick="$('#LoadMenu').hide();">[Fermer]</a></span>
+                            </div>
+                        </div><!-- div inputProg !-->
+                        <br>
+
+                        <div id="LoadBlock2">
+                            <a href="javascript:" onclick="$('#LoadMenu2').slideToggle();" title="Load a pre-prepared example program">Correction TP4 (ENSAI, 2016)</a>
+
+                            <div id="LoadMenu2">
+  <ul>
+      <li><a href="javascript:" onclick="LoadSampleProgram('TP4--Q3-1', 'TP4 : Q3.1');">TP4 - Q3.1 (ENSAI, 2016)</a></li>
+
+      <li><a href="javascript:" onclick="LoadSampleProgram('TP4--Q3-2', 'TP4 : Q3.2');">TP4 - Q3.2 (ENSAI, 2016)</a></li>
+
+      <li><a href="javascript:" onclick="LoadSampleProgram('TP4--Q3-3', 'TP4 : Q3.3');">TP4 - Q3.3 (ENSAI, 2016)</a></li>
+
+      <li><a href="javascript:" onclick="LoadSampleProgram('TP4--Q3-4', 'TP4 : Q3.4');">TP4 - Q3.4 (ENSAI, 2016)</a></li>
+
+      <li><a href="javascript:" onclick="LoadSampleProgram('TP4--Q3-5', 'TP4 : Q3.5');">TP4 - Q3.5 (ENSAI, 2016)</a></li>
+
+      <li><a href="javascript:" onclick="LoadSampleProgram('TP4--Q3-6', 'TP4 : Q3.6');">TP4 - Q3.6 (ENSAI, 2016)</a></li>
+  </ul>
+  <span style="font-size: x-small;"><a href="javascript:" onclick="$('#LoadMenu2').hide();">[Fermer]</a></span>
                             </div>
                         </div><!-- div inputProg !-->
                         <br>

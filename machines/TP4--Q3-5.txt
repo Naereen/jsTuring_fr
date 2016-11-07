@@ -1,0 +1,75 @@
+; ENSAI - Cours de Calculabilité et Complexité
+; Machine de Turing - TP4 - Q3.5
+; Utiliser ce code via le simulateur, à l'adresse http://morphett.info/turing/turing.html
+
+; Convertit un nombre n écrit en binaire vers son écriture en décimal
+; L'idée est simple :
+;  - on utilise un espace à gauche du nombre binaire pour écrire le nombre décimal, qui commence à 0 (= mot vide = _)
+;  - tant que le nombre binaire (à gauche) est non nul, on le décrémente (cf. Q3.4) et on incrémente (en décimal) le nombre décimal (à droite) (cf. Q3.3 adapté)
+;
+; Entrée : un seul nombre, écrit en binaire, avec le bit de poids fort à droite
+;          et le bit de poids faible à gauche (110 = 6 = 1×2² + 1×2¹ + 0×2⁰)
+
+; Exemple entrée : 110  (= 6)
+; Exemple sortie : 6
+
+; Question bonus : quelle est la complexité (approximative) du nombre d'étapes
+; de la Machine de Turing, en fonction de n la VALEUR du nombre entier ?
+;  - borne inférieure : f(n) >= 2 × n × log_2(n)
+;  - borne supérieure : f(n) <= n²
+;  - calcul exact     : pas facile à faire précisément, mais f(n) = O(n × log_2(n))
+
+; État q0      : on lit UN symbole, on va en q1
+q0 * * * q1    ; peu importe ce qu'on lit, on le laisse, sans bouger, puis on va en q1
+
+
+; État q1      : on cherche le début du nombre binaire d'entrée
+q1 _ _ r q1    ; on cherche encore...
+q1 * * r q1a   ; on a trouvé un 1 ou un 0, c'est le début du nombre binaire, on va en q1a pour trouve sa fin
+
+; État q1a     : on cherche la fin du nombre binaire
+q1a * * r q1a  ; on cherche encore...
+q1a _ _ l q2   ; on a trouvé la fin du nombre binaire, on retourne au symbole d'avant (dernier bit)
+
+; État q1b     : après avoir fini l'incrémentation décimale, on cherche le début du nombre binaire
+q1b _ _ r q1   ; on va aller au début du nombre binaire d'entrée
+q1b * * r q1b  ; ignore la sortie décimale
+
+
+; État q2      : on doit décrémenter le nombre binaire
+q2 1 0 l q3    ; on décrémente, 1-1 -> 0 : on a fini la décrémentation
+q2 0 1 l q2    ; on a une retenue à propager : x0-1 -> (x-1)1, on continue vers la gauche
+q2 _ _ r q20   ; on a terminé, le nombre binaire est vide
+
+; État q3      : on cherche le début de la sortie décimale
+q3 * * l q3    ; on ignore le mot binaire, on cherche le _
+q3 _ _ l q4    ; on a trouvé le _ qui sépare le sortie décimale de l'entrée binaire
+
+
+; État q4      : on doit incrémenter la sortie décimale
+q4 0 1 r q1b   ; on incrémente, 0+1 -> 1 : on a fini l'incrémentation
+q4 1 2 r q1b   ; on incrémente, 1+1 -> 2 : on a fini l'incrémentation
+q4 2 3 r q1b   ; on incrémente, 2+1 -> 3 : on a fini l'incrémentation
+q4 3 4 r q1b   ; on incrémente, 3+1 -> 4 : on a fini l'incrémentation
+q4 4 5 r q1b   ; on incrémente, 4+1 -> 5 : on a fini l'incrémentation
+q4 5 6 r q1b   ; on incrémente, 5+1 -> 6 : on a fini l'incrémentation
+q4 6 7 r q1b   ; on incrémente, 6+1 -> 7 : on a fini l'incrémentation
+q4 7 8 r q1b   ; on incrémente, 7+1 -> 8 : on a fini l'incrémentation
+q4 8 9 r q1b   ; on incrémente, 8+1 -> 9 : on a fini l'incrémentation
+q4 9 0 l q4    ; on a une retenue à propager : x9+1 -> (x+1)0, on continue vers la gauche
+q4 _ 1 r q1b   ; on est tout à gauche, on ajoute un 1 (le nombre décimal à une taille plus grande), on a fini l'incrémentation
+
+
+; État q20, q21,q q21a : nettoyage et repositionnement final
+q20 _ _ l q21  ; si on a finit de nettoyer l'entrée binaire, on retourne à la fin de la sortie décimale
+q20 * _ r q20  ; efface ce qui reste de l'entrée
+
+q21 _ _ l q21  ; on est au _ séparant l'entrée binaire et la sortie décimale
+q21 * * l q21a ; on lit un 0, 1, .., 9 de la sortie décimale, on va en q21a
+
+; État q21a :  on retourne au tout début de la sortie, sans rien modifier
+q21a * * l q21a         ; pour être plus propre : on remet la tête de lecture au DÉBUT du mot
+q21a _ _ r halt-accepté ; on est tout au début du nombre binaire de sortie : on a ENFIN terminé !
+
+
+; Astuce pour charger le ruban avec un mot initial intéressant. $INITIAL_TAPE: 11010

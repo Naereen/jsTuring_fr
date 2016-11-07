@@ -763,7 +763,6 @@ function LoadSampleProgram( zName, zFriendlyName, bInitial )
 {
     debug( 1, "Load '" + zName + "'" );
     SetStatusMessage( "Chargement du programme d'exemple..." );
-    notifyUser( "Chargement du programme d'exemple..." );
     var zFileName = "machines/" + zName + ".txt";
 
     StopTimer();   /* Stop machine, if currently running */
@@ -774,7 +773,8 @@ function LoadSampleProgram( zName, zFriendlyName, bInitial )
         dataType: "text",
         success: function( sData, sStatus, oRequestObj ) {
             /* Load the default initial tape, if any */
-            var oRegExp = new RegExp( ";.*\\$INITIAL_TAPE:? *(.+)$" );
+            // var oRegExp = new RegExp( ";.*\\$INITIAL_TAPE:? *(.+)$" );
+            var oRegExp = new RegExp( "\\$INITIAL_TAPE:? *(.+)$" );
             var aRegexpResult = oRegExp.exec( sData );
             if( aRegexpResult != null && aRegexpResult.length >= 2 ) {
                 debug( 4, "Parsed initial tape: '" + aRegexpResult + "' length: " + (aRegexpResult == null ? "null" : aRegexpResult.length) );
@@ -916,7 +916,6 @@ function OnLoad() {
 
     if( window.location.search != "" ) {
         SetStatusMessage( "Chargement de la machine sauvegardée..." );
-        notifyUser( "Chargement de la machine sauvegardée..." );
         LoadFromCloud( window.location.search.substring( 1 ) );
         window.history.replaceState( null, "", window.location.pathname );  /* Remove query string from URL */
     } else {

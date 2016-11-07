@@ -1,0 +1,24 @@
+; ENSAI - Cours de Calculabilité et Complexité
+; Machine de Turing - TP4 - Q3.3
+; Utiliser ce code via le simulateur, à l'adresse http://morphett.info/turing/turing.html
+
+; Incrémentation binaire : ajouter 1 à un nombre binaire
+; Entrée : un nombre binaire, n
+; Sortie : le nombre binaire n+1
+; Exemple entrée :  110  (= 6)
+; Exemple sortie :  111  (= 7), sans retenue à propager
+; Exemple entrée :  111  (= 7)
+; Exemple sortie : 1000  (= 8), avec retenue à propager
+
+; État q0 : on lit sans modifier tous les 1 et 0 du mot, vers la droite
+q0 1 1 r q0                ; pas encore la fin du mot
+q0 0 0 r q0                ; pas encore la fin du mot
+q0 _ _ l retenue           ; on est à la fin du mot : on commence à faire le calcul
+
+; État retenue : on doit faire le +1, en étant à la fin du mot
+retenue 0 1 * halt-acceté  ; on a finit, on écrit la retenue, et c'est bon
+retenue 1 0 l retenue      ; on change le 1 en 0, on propage la retenue
+retenue _ 1 * halt-acceté  ; on a finit, en étant allé tout à gauche : on écrit la retenue, et c'est bon
+
+
+; Astuce pour charger le ruban avec un mot initial intéressant. $INITIAL_TAPE: 1001110

@@ -12,11 +12,11 @@ Toutes les explications nécessaires sont fournis dans cette page.
 
 ## Organisation du dépôt
 
-### Page web (fichiers HTML)
-- [`turing.html`](https://naereen.github.io/jsTuring_fr/turing.html) ([`code de turing.html`](turing.html)) : page web pour le simulateur.
+### Interface web pour le simulateur
+- [`turing.html`](https://naereen.github.io/jsTuring_fr/turing.html) ([`code de turing.html`](turing.html)) : page web pour le simulateur. Elle peut être ouverte localement (depuis votre disque, si vous avez [télécharger et extrait]() le simulateur)
 
-### Exemples de Machines
-- Dans le dossier [`machines/`](machines/), chaque fichier `.txt` est un exemple de machine de Turing. Par exemple : [`concatenate.txt`](https://github.com/Naereen/jsTuring_fr/blob/gh-pages/machines/concatenate.txt) est une machine qui transforme `1111..1_111..1` = `1^n_1^m` en 
+### Exemples de machines ?
+- Dans le dossier [`machines/`](machines/), chaque fichier `.txt` est un exemple de machine de Turing. Par exemple : [`concatenate.txt`](https://github.com/Naereen/jsTuring_fr/blob/gh-pages/machines/concatenate.txt) est une machine qui transforme `1111..1_111..1` = `1^n_1^m` en `1^(n+m) = 111....11` (de taille `n+m`).
 
 ### Scripts (Javascript)
 - [`jsturing.js`](js/jsturing.js) : programme principal, en Javascript, pour le simulateur de machines de Turing. Complexe, mais très commenté.
@@ -35,10 +35,12 @@ Toutes les explications nécessaires sont fournis dans cette page.
 
 ----
 
+### Bonus
+- [Certaines machines](https://github.com/Naereen/jsTuring_fr/search?q=TP4&type=Code&utf8=✓) sont les solutions d'un TP donné à l'[ENSAI, Rennes](http://www.ensai.fr/) en novembre 2016.
+
 ## TODO
 - traduire les titres.
 - traduire la doc en bas de page.
-- ajouter mes machines (solutions d'un TP donné à l'[ENSAI, Rennes](http://www.ensai.fr/) en novembre 2016).
 - traduire les exemples donnés. Au moins utiliser q0 au lieu de 0
 
 ----
