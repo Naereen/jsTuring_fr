@@ -7,6 +7,11 @@ Toutes les explications nécessaires sont fournis dans cette page.
 
 ----
 
+## Démonstration interactive
+![Demo - Interactive GIF](screenshots/demo_live.gif)
+
+----
+
 > Le reste de ce document explique l'organisation des fichiers constituant le simulateur.
 > Si vous voulez juste vous en servir, allez [ici](https://naereen.github.io/jsTuring_fr/turing.html).
 
