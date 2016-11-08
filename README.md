@@ -3,7 +3,7 @@
 Ce dépôt est une simple traduction en français du [simulateur de Machines de Turing](http://morphett.info/turing/) en HTML/Javascript écrit par [Anthony Morphett](http://morphett.info/).
 
 Vous pouvez jouer avec cette version traduite à l'adresse : https://naereen.github.io/jsTuring_fr/turing.html ([ici](https://naereen.github.io/jsTuring_fr/turing.html)).
-Toutes les explications nécessaires sont fournis dans cette page.
+Toutes les explications nécessaires sont fournies dans cette page.
 
 ----
 
