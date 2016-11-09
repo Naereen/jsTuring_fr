@@ -37,26 +37,12 @@
 0  * * * effacePremiersZero
 q0 * * * effacePremiersZero
 
-; Machine initiale : on va ajouter D0B ou D1B à gauche du mot binaire
+; Machine initiale : on va ajouter DB à gauche du mot binaire
 ; D'abord on efface les 0 au début du mot binaire
 effacePremiersZero 0 _ r effacePremiersZero
-effacePremiersZero * * * chDernierBit
-
-; Puis  on cherche la fin du mot binaire
-chDernierBit 1 1 r chDernierBit
-chDernierBit 0 0 r chDernierBit
-chDernierBit _ _ l q1  ; on a trouvé la fin du mot binaire
-
-; Ensuite, on va déplacer le dernier chiffre et l'écrire entre D et B à gauche
-q1        0 _ l ajout_D0B
-q1        _ 0 * halt-termine       ; plus rien à lire
-ajout_D0B _ B l ajout_D0
-ajout_D0B * * l ajout_D0B
-ajout_D0  _ 0 l ajout_D
-q1        1 _ l ajout_D1B
-ajout_D1B _ B l ajout_D1
-ajout_D1B * * l ajout_D1B
-ajout_D1  _ 1 l ajout_D
+effacePremiersZero * * * ajout_DB
+ajout_DB 1 1 l ajout_DB
+ajout_DB _ B l ajout_D
 ajout_D   _ D * adretour
 
 ; Machine +1 :
@@ -115,8 +101,8 @@ mult1_1 6 2 l mult2_1     ; 6 * 2 = 12 : on doit propager la retenue +1 au chiff
 mult1_1 7 4 l mult2_1     ; 7 * 2 = 14 : on doit propager la retenue +1 au chiffre à gauche
 mult1_1 8 6 l mult2_1     ; 8 * 2 = 16 : on doit propager la retenue +1 au chiffre à gauche
 mult1_1 9 8 l mult2_1     ; 9 * 2 = 18 : on doit propager la retenue +1 au chiffre à gauche
-mult1_1 _ _ r ad1_fin  ; on a fini, on va se déplacer à droite
-mult1_1 D D r ad1_fin  ; on a fini, on va se déplacer à droite
+mult1_1 _ _ r ad0_fin  ; on a fini, on va se déplacer à droite
+mult1_1 D D r ad0_fin  ; on a fini, on va se déplacer à droite
 
 ; État mult2_1 : on écrit la retenue, et on continue la multiplication par 2
 mult2_1 0 1 l mult1_1     ; 0 * 2 + 1 = 1  : sans retenue
@@ -189,4 +175,4 @@ retourDeci * * * nettoyage     ; premier symbole non blanc, on commence a nettoy
 nettoyage  D _ r halt-termine   ; on efface D, on a enfin fini, sur le début du mot de sortie
 nettoyage  * * l nettoyage      ; on parcourt le mot décimal
 
-;$INITIAL_TAPE:00001011011010
+;$INITIAL_TAPE:1110100001011011010
