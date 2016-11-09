@@ -1,6 +1,6 @@
 ; ENSAI - Cours de Calculabilité et Complexité
 ; Machine de Turing - TP4 - Q3.2
-; Utiliser ce code via le simulateur, à l'adresse https://github.com/Naereen/jsTuring_fr
+; Utiliser ce code via le simulateur, à l'adresse https://naereen.github.io/jsTuring_fr/turing.html#Machine
 
 ; Addition unaire : ajouter deux nombres unaires
 ; Entrée : deux nombres unaires, n = 111...11 = 1^n et m = 11..1 = 1^m, séparés par un seul symbole blanc.

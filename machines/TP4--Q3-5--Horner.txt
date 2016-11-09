@@ -1,0 +1,164 @@
+; ENSAI - Cours de Calculabilité et Complexité
+; Machine de Turing - TP4 - Q3.5 (autre méthode)
+; Utiliser ce code via le simulateur, à l'adresse https://naereen.github.io/jsTuring_fr/turing.html#Machine
+;
+; Conversion binaire décimal par la méthode de Horner
+;   Plus de détails sur https://fr.wikipedia.org/wiki/M%C3%A9thode_de_Ruffini-Horner#Conversion_de_base_de_num.C3.A9ration
+;   Merci à Nadia Boukerouis pour avoir partagé sa solution.
+
+; Convertit un nombre n écrit en binaire vers son écriture en décimal
+; L'idée est moins simple que l'approche naïve par décrémentation/incrémentation successives
+; On utilise la méthode de Horner : chaque bit qu'on lit chez le binaire fait soit :
+;  - on lit un 0 : x 2 sur le décimal
+;  - on lit un 1 : x 2 puis +1 sur le décimal
+;
+; Entrée : un seul nombre, écrit en binaire, avec le bit de poids fort à droite
+;          et le bit de poids faible à gauche (110 = 6 = 1×2² + 1×2¹ + 0×2⁰)
+
+; Exemple entrée : 110  (= 6)
+; État d'entrée  : q0
+; Exemple sortie : 6
+
+; Exemple entrée : 00001011011010  (= 730)
+; État d'entrée  : 0  (aussi valide)
+; Exemple sortie : 730
+;   Cet exemple permet de voir que cette méthode est rapide : 296 étapes suffisent
+;   comparé à XXX pour la méthode naïve.
+
+;
+; Remarques :
+;  - Le symbole D est utilisé comme début du mot décimal de sortie
+;  - Le symbole B est utilisé comme début du mot binaire d'entrée
+
+; État initiaux 0 ou q0 : pareil
+0  * * * effacePremiersZero
+q0 * * * effacePremiersZero
+
+; Machine initiale : on va ajouter D0B ou D1B à gauche du mot binaire
+; D'abord on efface les 0 au début du mot binaire
+effacePremiersZero 0 _ r effacePremiersZero
+effacePremiersZero * * * chDernierBit
+
+; Puis  on cherche la fin du mot binaire
+chDernierBit 1 1 r chDernierBit
+chDernierBit 0 0 r chDernierBit
+chDernierBit _ _ l q1  ; on a trouvé la fin du mot binaire
+
+; Ensuite, on va déplacer le dernier chiffre et l'écrire entre D et B à gauche
+q1 0 _ l ajout_D0B
+ajout_D0B _ B l ajout_D0
+ajout_D0B * * l ajout_D0B
+ajout_D0 _ 0 l ajout_D
+q1 1 _ l ajout_D1B
+ajout_D1B _ B l ajout_D1
+ajout_D1B * * l ajout_D1B
+ajout_D1 _ 1 l ajout_D
+ajout_D _ D * adretour
+
+; Machine +1 :
+;  - ajoute 1 au nombre décimal
+;  - puis va dans l'état alle_mul pour commencer la multiplication par deux.
+; État ad0 : on recherche la fin du nombre décimal
+ad0 _ _ l ad1
+ad0 * * r ad0
+
+; État ad1 : on additionne 1, puis on démarre la multiplication par 2
+ad1 0 1 * alle_mul
+ad1 1 2 * alle_mul
+ad1 2 3 * alle_mul
+ad1 3 4 * alle_mul
+ad1 4 5 * alle_mul
+ad1 5 6 * alle_mul
+ad1 6 7 * alle_mul
+ad1 7 8 * alle_mul
+ad1 8 9 * alle_mul
+ad1 9 0 l ad1          ; retenue à propager à gauche
+ad1 _ 1 * alle_mul
+ad1 D 1 l rajoutD_mul  ; on doit rajouter D au début du nombre décimal avant de démarrer la multiplication
+
+; Machine ad_fin : On additionne 1 sans démarrer la multiplication par 2
+; État ad0_fin : on recherche la fin du nombre décimal
+ad0_fin _ _ l ad1_fin
+ad0_fin * * r ad0_fin
+
+; État ad1_fin : on additionne 1
+ad1_fin 0 1 * adretour
+ad1_fin 1 2 * adretour
+ad1_fin 2 3 * adretour
+ad1_fin 3 4 * adretour
+ad1_fin 4 5 * adretour
+ad1_fin 5 6 * adretour
+ad1_fin 6 7 * adretour
+ad1_fin 7 8 * adretour
+ad1_fin 8 9 * adretour
+ad1_fin 9 0 l ad1_fin   ; retenue à propager à gauche
+ad1_fin _ 1 * adretour
+ad1_fin D 1 l rajoutD   ; on doit rajouter D au début du nombre décimal
+
+; Machine retour, on se déplace, du nombre décimal au nombre binaire
+adretour B _ r lecture  ; début du décimal, on lit un bit
+adretour * * r adretour
+
+; Machine lecture : on lit le premier chiffre du nombre binaire restant, que l'on efface (on s'en est servi)
+lecture 0 B l alle_mul    ; on doit multiplier le décimal par 2
+lecture 1 B l alle_ad     ; on doit faire +1 puis *2 au décimal
+lecture _ _ l retourDeci  ; on a fini : nombre binaire vide, on doit nettoyer le ruban
+
+; Machine alle_mul : on va du nombre binaire au nombre décimal en sachant qu'il faudra le multiplier par 2
+alle_mul D D r mult0
+alle_mul * * l alle_mul
+alle_mul _ _ l alle_mul
+
+; Machine alle_ad : on va du nombre binaire au nombre décimal en sachant qu'il faudra lui ajouter 1 puis le multiplier par 2
+alle_ad D D r ad0
+alle_ad * * l alle_ad
+
+; Machine alle_ad_fin
+alle_ad_fin D D r ad0_fin
+alle_ad_fin * * l alle_ad_fin
+
+
+; Machine mult par 2 : multiplie le nombre décimal par 2
+; État mult0 : rien à faire
+mult0 _ _ l mult1  ; on doit propager un *2 à gauche
+mult0 * * r mult0
+
+; État mult1 : on multiplie le chiffre lu par 2
+mult1 0 0 l mult1     ; 0 * 2 = 0  : sans retenue
+mult1 1 2 l mult1     ; 1 * 2 = 2  : sans retenue
+mult1 2 4 l mult1     ; 2 * 2 = 4  : sans retenue
+mult1 3 6 l mult1     ; 3 * 2 = 6  : sans retenue
+mult1 4 8 l mult1     ; 4 * 2 = 8  : sans retenue
+mult1 5 0 l mult2     ; 5 * 2 = 10 : on doit propager la retenue +1 au chiffre à gauche
+mult1 6 2 l mult2     ; 6 * 2 = 12 : on doit propager la retenue +1 au chiffre à gauche
+mult1 7 4 l mult2     ; 7 * 2 = 14 : on doit propager la retenue +1 au chiffre à gauche
+mult1 8 6 l mult2     ; 8 * 2 = 16 : on doit propager la retenue +1 au chiffre à gauche
+mult1 9 8 l mult2     ; 9 * 2 = 18 : on doit propager la retenue +1 au chiffre à gauche
+mult1 _ _ r adretour  ; on a fini, on va se déplacer à droite
+mult1 D D r adretour  ; on a fini, on va se déplacer à droite
+
+; État mult2 : on écrit la retenue, et on continue la multiplication par 2
+mult2 0 1 l mult1     ; 0 * 2 + 1 = 1  : sans retenue
+mult2 1 3 l mult1     ; 1 * 2 + 1 = 3  : sans retenue
+mult2 2 5 l mult1     ; 2 * 2 + 1 = 5  : sans retenue
+mult2 3 7 l mult1     ; 3 * 2 + 1 = 7  : sans retenue
+mult2 4 9 l mult1     ; 4 * 2 + 1 = 9  : sans retenue
+mult2 5 1 l mult2     ; 5 * 2 + 1 = 11 : on doit propager la retenue +1 au chiffre à gauche
+mult2 6 3 l mult2     ; 6 * 2 + 1 = 13 : on doit propager la retenue +1 au chiffre à gauche
+mult2 7 5 l mult2     ; 7 * 2 + 1 = 15 : on doit propager la retenue +1 au chiffre à gauche
+mult2 8 7 l mult2     ; 8 * 2 + 1 = 17 : on doit propager la retenue +1 au chiffre à gauche
+mult2 9 9 l mult2     ; 9 * 2 + 1 = 19 : on doit propager la retenue +1 au chiffre à gauche
+mult2 D 1 l rajoutD   ; on écrit la retenue puis on rajoute un D à gauche
+
+; Machine rajout : permet de rajouter D au début si besoin
+rajoutD     * D r adretour
+rajoutD_mul * D r alle_mul
+
+; Machine nettoyage final
+; on retourne au début du mot décimal, on efface D
+retourDeci _ _ l retourDeci    ; on ignore les blancs
+retourDeci * * * nettoyage     ; premier symbole non blanc, on commence a nettoyer
+nettoyage D _ r halt-termine   ; on efface D, on a enfin fini, sur le début du mot de sortie
+nettoyage * * l nettoyage      ; on parcourt le mot décimal
+
+;$INITIAL_TAPE:00001011011010

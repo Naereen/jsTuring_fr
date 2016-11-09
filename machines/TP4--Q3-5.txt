@@ -1,6 +1,6 @@
 ; ENSAI - Cours de Calculabilité et Complexité
 ; Machine de Turing - TP4 - Q3.5
-; Utiliser ce code via le simulateur, à l'adresse https://github.com/Naereen/jsTuring_fr
+; Utiliser ce code via le simulateur, à l'adresse https://naereen.github.io/jsTuring_fr/turing.html#Machine
 
 ; Convertit un nombre n écrit en binaire vers son écriture en décimal
 ; L'idée est simple :
@@ -18,6 +18,11 @@
 ;  - borne inférieure : f(n) >= 2 × n × log_2(n)
 ;  - borne supérieure : f(n) <= n²
 ;  - calcul exact     : pas facile à faire précisément, mais f(n) = O(n × log_2(n))
+;
+; Cette méthode est très lente : pour une méthode bien plus rapide, voir la méthode de Hörner
+; Corrigée dans le fichier TP4--Q3-5--Horner.txt
+;
+
 
 ; État q0      : on lit UN symbole, on va en q1
 q0 * * * q1    ; peu importe ce qu'on lit, on le laisse, sans bouger, puis on va en q1
