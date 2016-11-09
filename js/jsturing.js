@@ -11,7 +11,7 @@
 
 var nDebugLevel = 0;
 
-var bFullSpeed = false; /* If true, run at full speed with no delay between steps */
+var bFullSpeed = false;     /* If true, run at full speed with no delay between steps */
 
 var bIsReset = false;       /* true if the machine has been reset, false if it is or has been running */
 var sTape = "";             /* Contents of TM's tape. Stores all cells that have been visited by the head */
@@ -26,7 +26,7 @@ var aProgram = new Object();
    Its members are objects with properties newSymbol, action, newState, breakpoint and sourceLineNumber.
 */
 
-var nMaxUndo = 10;  /* Maximum number of undo steps */
+var nMaxUndo = 100;  /* Maximum number of undo steps */
 var aUndoList = [];
 /* aUndoList is an array of 'deltas' in the form {previous-state, direction, previous-symbol}. */
 
