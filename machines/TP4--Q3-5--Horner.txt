@@ -9,21 +9,24 @@
 ; Convertit un nombre n écrit en binaire vers son écriture en décimal
 ; L'idée est moins simple que l'approche naïve par décrémentation/incrémentation successives
 ; On utilise la méthode de Horner : chaque bit qu'on lit chez le binaire fait soit :
-;  - on lit un 0 : x 2 sur le décimal
-;  - on lit un 1 : x 2 puis +1 sur le décimal
+;  - on lit un 0 : x 2         sur le décimal à gauche
+;  - on lit un 1 : x 2 puis +1 sur le décimal à gauche
 ;
 ; Entrée : un seul nombre, écrit en binaire, avec le bit de poids fort à droite
 ;          et le bit de poids faible à gauche (110 = 6 = 1×2² + 1×2¹ + 0×2⁰)
+; Exemple : 6 = 1×2² + 1×2¹ + 0×2⁰ = 0 + 2*(1 + 2*(1))
+; Exemple : 7 = 1×2² + 1×2¹ + 1×2⁰ = 1 + 2*(1 + 2*(1))
 
-; Exemple entrée : 110  (= 6)
+; Exemple entrée : 110  (n = 6)
 ; État d'entrée  : q0
 ; Exemple sortie : 6
 
-; Exemple entrée : 00001011011010  (= 730)
+; Exemple entrée : 00001011011010  (n = 730)
 ; État d'entrée  : 0  (aussi valide)
 ; Exemple sortie : 730
 ;   Cet exemple permet de voir que cette méthode est rapide : 296 étapes suffisent
-;   comparé à XXX pour la méthode naïve.
+;   comparé à 23585 pour la méthode naïve.
+;   Cette méthode de Horner est en O( log_2(n) log_10(n)) alors que l'approche naïve est en O( n log_2(n))
 
 ;
 ; Remarques :
@@ -45,38 +48,25 @@ chDernierBit 0 0 r chDernierBit
 chDernierBit _ _ l q1  ; on a trouvé la fin du mot binaire
 
 ; Ensuite, on va déplacer le dernier chiffre et l'écrire entre D et B à gauche
-q1 0 _ l ajout_D0B
+q1        0 _ l ajout_D0B
+q1        _ 0 * halt-termine       ; plus rien à lire
 ajout_D0B _ B l ajout_D0
 ajout_D0B * * l ajout_D0B
-ajout_D0 _ 0 l ajout_D
-q1 1 _ l ajout_D1B
+ajout_D0  _ 0 l ajout_D
+q1        1 _ l ajout_D1B
 ajout_D1B _ B l ajout_D1
 ajout_D1B * * l ajout_D1B
-ajout_D1 _ 1 l ajout_D
-ajout_D _ D * adretour
+ajout_D1  _ 1 l ajout_D
+ajout_D   _ D * adretour
 
 ; Machine +1 :
-;  - ajoute 1 au nombre décimal
-;  - puis va dans l'état alle_mul pour commencer la multiplication par deux.
+;  - fait la multiplication par deux dans alle_mul_1
+;  - puis va dans l'état ad0_fin pour ajouter 1 au nombre décimal
 ; État ad0 : on recherche la fin du nombre décimal
-ad0 _ _ l ad1
+ad0 _ _ l alle_mul_1
 ad0 * * r ad0
 
-; État ad1 : on additionne 1, puis on démarre la multiplication par 2
-ad1 0 1 * alle_mul
-ad1 1 2 * alle_mul
-ad1 2 3 * alle_mul
-ad1 3 4 * alle_mul
-ad1 4 5 * alle_mul
-ad1 5 6 * alle_mul
-ad1 6 7 * alle_mul
-ad1 7 8 * alle_mul
-ad1 8 9 * alle_mul
-ad1 9 0 l ad1          ; retenue à propager à gauche
-ad1 _ 1 * alle_mul
-ad1 D 1 l rajoutD_mul  ; on doit rajouter D au début du nombre décimal avant de démarrer la multiplication
-
-; Machine ad_fin : On additionne 1 sans démarrer la multiplication par 2
+; Machine ad_fin : On additionne 1
 ; État ad0_fin : on recherche la fin du nombre décimal
 ad0_fin _ _ l ad1_fin
 ad0_fin * * r ad0_fin
@@ -101,16 +91,54 @@ adretour * * r adretour
 
 ; Machine lecture : on lit le premier chiffre du nombre binaire restant, que l'on efface (on s'en est servi)
 lecture 0 B l alle_mul    ; on doit multiplier le décimal par 2
-lecture 1 B l alle_ad     ; on doit faire +1 puis *2 au décimal
+lecture 1 B l alle_ad     ; on doit *2 puis +1 au décimal
 lecture _ _ l retourDeci  ; on a fini : nombre binaire vide, on doit nettoyer le ruban
+
+; Machine alle_mul_1 : on va du nombre binaire au nombre décimal en sachant qu'il faudra le multiplier par 2 puis lui ajouter 1
+alle_mul_1 D D r mult0_1
+alle_mul_1 * * l alle_mul_1
+alle_mul_1 _ _ l alle_mul_1
+
+; Machine mult par 2 : multiplie le nombre décimal par 2
+; État mult0_1 : rien à faire
+mult0_1 _ _ l mult1_1  ; on doit propager un *2 à gauche
+mult0_1 * * r mult0_1
+
+; État mult1_1 : on multiplie le chiffre lu par 2
+mult1_1 0 0 l mult1_1     ; 0 * 2 = 0  : sans retenue
+mult1_1 1 2 l mult1_1     ; 1 * 2 = 2  : sans retenue
+mult1_1 2 4 l mult1_1     ; 2 * 2 = 4  : sans retenue
+mult1_1 3 6 l mult1_1     ; 3 * 2 = 6  : sans retenue
+mult1_1 4 8 l mult1_1     ; 4 * 2 = 8  : sans retenue
+mult1_1 5 0 l mult2_1     ; 5 * 2 = 10 : on doit propager la retenue +1 au chiffre à gauche
+mult1_1 6 2 l mult2_1     ; 6 * 2 = 12 : on doit propager la retenue +1 au chiffre à gauche
+mult1_1 7 4 l mult2_1     ; 7 * 2 = 14 : on doit propager la retenue +1 au chiffre à gauche
+mult1_1 8 6 l mult2_1     ; 8 * 2 = 16 : on doit propager la retenue +1 au chiffre à gauche
+mult1_1 9 8 l mult2_1     ; 9 * 2 = 18 : on doit propager la retenue +1 au chiffre à gauche
+mult1_1 _ _ r ad1_fin  ; on a fini, on va se déplacer à droite
+mult1_1 D D r ad1_fin  ; on a fini, on va se déplacer à droite
+
+; État mult2_1 : on écrit la retenue, et on continue la multiplication par 2
+mult2_1 0 1 l mult1_1     ; 0 * 2 + 1 = 1  : sans retenue
+mult2_1 1 3 l mult1_1     ; 1 * 2 + 1 = 3  : sans retenue
+mult2_1 2 5 l mult1_1     ; 2 * 2 + 1 = 5  : sans retenue
+mult2_1 3 7 l mult1_1     ; 3 * 2 + 1 = 7  : sans retenue
+mult2_1 4 9 l mult1_1     ; 4 * 2 + 1 = 9  : sans retenue
+mult2_1 5 1 l mult2_1     ; 5 * 2 + 1 = 11 : on doit propager la retenue +1 au chiffre à gauche
+mult2_1 6 3 l mult2_1     ; 6 * 2 + 1 = 13 : on doit propager la retenue +1 au chiffre à gauche
+mult2_1 7 5 l mult2_1     ; 7 * 2 + 1 = 15 : on doit propager la retenue +1 au chiffre à gauche
+mult2_1 8 7 l mult2_1     ; 8 * 2 + 1 = 17 : on doit propager la retenue +1 au chiffre à gauche
+mult2_1 9 9 l mult2_1     ; 9 * 2 + 1 = 19 : on doit propager la retenue +1 au chiffre à gauche
+mult2_1 D 1 l rajoutD   ; on écrit la retenue puis on rajoute un D à gauche
+
 
 ; Machine alle_mul : on va du nombre binaire au nombre décimal en sachant qu'il faudra le multiplier par 2
 alle_mul D D r mult0
 alle_mul * * l alle_mul
 alle_mul _ _ l alle_mul
 
-; Machine alle_ad : on va du nombre binaire au nombre décimal en sachant qu'il faudra lui ajouter 1 puis le multiplier par 2
-alle_ad D D r ad0
+; Machine alle_ad : on va du nombre binaire au nombre décimal en sachant qu'il faudra le multiplier par 2 puis lui ajouter 1
+alle_ad D D r ad0        ; on a trouve le début du nombre décimal
 alle_ad * * l alle_ad
 
 ; Machine alle_ad_fin
@@ -158,7 +186,7 @@ rajoutD_mul * D r alle_mul
 ; on retourne au début du mot décimal, on efface D
 retourDeci _ _ l retourDeci    ; on ignore les blancs
 retourDeci * * * nettoyage     ; premier symbole non blanc, on commence a nettoyer
-nettoyage D _ r halt-termine   ; on efface D, on a enfin fini, sur le début du mot de sortie
-nettoyage * * l nettoyage      ; on parcourt le mot décimal
+nettoyage  D _ r halt-termine   ; on efface D, on a enfin fini, sur le début du mot de sortie
+nettoyage  * * l nettoyage      ; on parcourt le mot décimal
 
 ;$INITIAL_TAPE:00001011011010
