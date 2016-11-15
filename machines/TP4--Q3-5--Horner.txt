@@ -1,6 +1,6 @@
 ; ENSAI - Cours de Calculabilité et Complexité
 ; Machine de Turing - TP4 - Q3.5 (autre méthode)
-; Utiliser ce code via le simulateur, à l'adresse https://naereen.github.io/jsTuring_fr/turing.html#Machine
+; Utilisez ce code via le simulateur, à l'adresse https://naereen.github.io/jsTuring_fr/turing.html#Machine
 ;
 ; Conversion binaire décimal par la méthode de Horner
 ;   Plus de détails sur https://fr.wikipedia.org/wiki/M%C3%A9thode_de_Ruffini-Horner#Conversion_de_base_de_num.C3.A9ration
