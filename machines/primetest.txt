@@ -1,3 +1,4 @@
+; From https://github.com/awmorp/jsturing
 ; Tests if a given number is prime.
 ; Input: a single natural number in binary.
 

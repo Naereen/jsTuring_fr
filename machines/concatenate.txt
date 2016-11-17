@@ -1,3 +1,4 @@
+; From https://github.com/awmorp/jsturing
 ; Write your Turing machine program here!
 ; Syntax: <current state> <current symbol> <new symbol> <direction> <new state>
 ; ';' starts a comment.
