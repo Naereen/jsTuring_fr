@@ -1,0 +1,92 @@
+; ENSAI - Cours de Calculabilité et Complexité
+; Machine de Turing - Examen 2016 - Q2.9
+; Utilisez ce code via le simulateur, à l'adresse https://naereen.github.io/jsTuring_fr/turing.html#Machine
+
+; Incrémentation/Décrémentation binaire : ajouter/enlever 1 à un nombre binaire
+; Entrée : deux nombres binaires, n en codage standard, m en codage inverse, n$m
+; Sortie : un nombre binaire, n+m en codage standard, m en codage inverse, écrits n+m$m
+
+; Exemple entrée : 01*$011   = 2$6
+; Exemple sortie : 1000$011  = 8$6
+
+; État q0 : On commence par aller recopier le nombre de gauche à la fin, en le séparant d'un symbole arbitraire, ici c'est #
+q0 * * r q0
+q0 _ # l recopieG  ; commence a recopier, en allant au $ au milieu
+
+; États recopieG, recopieG1, recopieG0, lectureG, reecrie
+recopieG * * l recopieG     ; cherche le $
+recopieG $ $ r lectureG     ; $ trouvé, on cherche à lire un chiffre
+lectureG X X r lectureG     ; on laisse les X et Y en place
+lectureG Y Y r lectureG     ; on laisse les X et Y en place
+lectureG 0 X r recopieG0    ; on doit recopier un 0 a la toute fin
+recopieG0 _ 0 r recopieG    ; a la fin, on écrit le 0
+recopieG0 * * r recopieG0   ; pas encore la fin
+lectureG 1 Y r recopieG1    ; on doit recopier un 0 a la toute fin
+recopieG1 _ 1 r recopieG    ; a la fin, on écrit le 1
+recopieG1 * * r recopieG1   ; pas encore la fin
+
+lectureG # # l reecrie      ; on a finit la lecture, on doit nettoyer les X, Y temporaires
+
+; État reecrie : on transforme les X et Y en 0 et 1
+reecrie X 0 l reecrie
+reecrie Y 1 l reecrie
+reecrie $ $ * debut         ; Fin recopie -> debut
+reecrie * * l reecrie
+
+; État debut : on lit sans modifier tous les 1 et 0 du 1er mot, vers la droite, puis on fera le +1
+debut $ $ l plus1G          ; on est à la fin du 1er mot : on commence à faire le calcul +1
+; Note: si le mot d'entrée est 01*$011, on indique qu'on commence au $ (comme le disait le sujet), et donc pas besoin de ces transitions vers la droite
+debut * * r debut             ; pas encore la fin du 1er mot
+
+; État plus1G : on doit faire le +1, en étant à la fin du mot
+plus1G 0 1 * vaDroite   ; on a finit, on écrit la retenue, et c'est bon
+plus1G 1 0 l plus1G     ; on change le 1 en 0, on propage la retenue
+plus1G _ 1 * vaDroite   ; on a finit, en étant allé tout à gauche : on écrit la retenue, et c'est bon
+
+; État vaDroite : on lit sans modifier tous les 1 et 0 du 1er mot, vers la droite, puis on fera le -1 en partant du $
+vaDroite $ $ r q1
+vaDroite * * r vaDroite
+
+; État q1 : cherche le 1er symbole 0, en inversant les 1 et 0, puis va dans q2
+; Ici, on propage la retenue -1 à droite (car le nombre est en binaire inversé)
+q1 0 1 r q1
+q1 1 0 r q2
+
+; État q2 : cherche la fin du nombre, sans le toucher, puis va dans q3
+q2 0 0 r q2
+q2 1 1 r q2
+q2 _ _ l q3
+q2 # # l q3
+
+; État q3 : efface les 0 vers la gauche, va dans q4 au 1er symbole 1, ou termine si fin du mot (vaADroite)
+q3 $ $ * vaADroite
+q3 0 _ l q3
+q3 1 1 l q4
+
+; État q4 : retourne au début du nombre de droite sans rien modifier
+q4 $ $ * debut  ; on a encore un +1 a faire tant que le nombre de droite est non nul
+q4 0 0 l q4
+q4 1 1 l q4
+
+; État vaADroite : cherche le # puis commence la recopie
+vaADroite # # * recopieD
+vaADroite * * r vaADroite
+
+; États recopieD, recopieD1, recopieD0, lectureD, reecrie
+; On doit effacer les blancs au milieu, et recopier le mot laissé de coté à droite
+recopieD * * r recopieD      ; cherche la fin nombre
+recopieD _ _ l lectureD      ; fin trouvée, on cherche à lire un chiffre
+lectureD 0 _ l recopieD0     ; on doit recopier un 0 a la gauche du nombre, a droite du $
+recopieD0 _ 0 r recopieD     ; a la fin, on écrit le 0
+recopieD0 * * l recopieD0    ; pas encore la fin
+lectureD 1 _ l recopieD1     ; on doit recopier un 0 a la gauche du nombre, a droite du $
+recopieD1 _ 1 r recopieD     ; a la fin, on écrit le 1
+recopieD1 * * l recopieD1    ; pas encore la fin
+
+lectureD # _ l retrouve$     ; on a fini la recopie
+
+retrouve$ $ $ * halt-accepte  ; on cherche le $ pour bien se repositionner
+retrouve$ * * l retrouve$
+
+; Astuce pour charger le ruban avec un mot initial intéressant.
+;$INITIAL_TAPE:01*$011
