@@ -333,7 +333,7 @@ code {
   margin-top: 0.5em;
 }
 
-#LoadMenu, #LoadMenu2 {
+#LoadMenu, #LoadMenu2, #LoadMenu3 {
   display: none;  /* Initially hidden */
 }
 
