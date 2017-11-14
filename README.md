@@ -22,6 +22,7 @@ Toutes les explications nécessaires sont fournies dans cette page.
 
 ### Exemples de machines ?
 - Dans le dossier [`machines/`](machines/), chaque fichier `.txt` est un exemple de machine de Turing. Par exemple : [`concatenate.txt`](https://github.com/Naereen/jsTuring_fr/blob/gh-pages/machines/concatenate.txt) est une machine qui transforme `1111..1_111..1` = `1^n_1^m` en `1^(n+m) = 111....11` (de taille `n+m`).
+- La documentation pour la machine de Turing universelle se trouve [dans ce fichier PDF (par David Bevan)](utm.pdf).
 
 ### Scripts (Javascript)
 - [`jsturing.js`](js/jsturing.js) : programme principal, en Javascript, pour le simulateur de machines de Turing. Complexe, mais très commenté.
