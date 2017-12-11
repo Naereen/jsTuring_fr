@@ -66,7 +66,7 @@ function Step() {
     if( oInstruction != null ) {
         sNewState = (oInstruction.newState == "*" ? sState : oInstruction.newState);
         sNewSymbol = (oInstruction.newSymbol == "*" ? sHeadSymbol : oInstruction.newSymbol);
-        nAction = (oInstruction.action.toLowerCase() == "r" ? 1 : (oInstruction.action.toLowerCase() == "l" ? -1 : 0));
+        nAction = (((oInstruction.action.toLowerCase() == "r") || (oInstruction.action.toLowerCase() == "d")) ? 1 : (((oInstruction.action.toLowerCase() == "l") || (oInstruction.action.toLowerCase() == "g")) ? -1 : 0));
     if( nVariant == 1 && nHeadPosition == 0 && nAction == -1 ) {
       nAction = 0;  /* Can't move left when already at left-most tape cell. */
     }
@@ -101,7 +101,7 @@ function Step() {
     debug( 4, "Step() finished. New tape: '" + sTape + "'  new state: '" + sState + "'  action: " + nAction + "  line number: " + nLineNumber  );
     UpdateInterface();
 
-    if( sNewState.substring(0,4).toLowerCase() == "halt" ) {
+    if( (sNewState.substring(0,4).toLowerCase() == "halt") || (sNewState.substring(0,4).toLowerCase() == "stop") ) {
         if( oInstruction != null ) {
             SetStatusMessage( "Arrêté." );
             notifyUser( "Arrêté." );
@@ -332,10 +332,10 @@ function ParseLine( sLine, nLineNum )
         oTuple.error = "Erreur de syntaxe à la ligne " + (nLineNum + 1) + ": il manque &lt;la direction&gt;!" ;
         return( oTuple );
     }
-    if( ["l", "r", "*"].indexOf( aTokens[3].toLowerCase() ) < 0 ) {
+    if( ["l", "g", "r", "d", "*"].indexOf( aTokens[3].toLowerCase() ) < 0 ) {
         // FIXME change l and r to g and d
         oTuple.isValid = false;
-        oTuple.error = "Erreur de syntaxe à la ligne " + (nLineNum + 1) + ": &lt;la direction&gt; doit être 'l' (pour gauche), ou 'r' (pour droite) ou '*' (pour rester sur place) !";
+        oTuple.error = "Erreur de syntaxe à la ligne " + (nLineNum + 1) + ": &lt;la direction&gt; doit être 'l' ou 'g' (pour gauche), ou 'r' ou 'd' (pour droite) ou '*' (pour rester sur place) !";
         return( oTuple );
     }
     oTuple.action = aTokens[3].toLowerCase();
@@ -464,7 +464,7 @@ function LoadMachineSnapshot( oObj )
     VariantChanged();
     SetupVariantCSS();
     aUndoList = [];
-    if( sState.substring(0,4).toLowerCase() == "halt" ) {
+    if( (sState.substring(0,4).toLowerCase() == "halt") || (sNewState.substring(0,4).toLowerCase() == "stop") ) {
         SetStatusMessage( "Machine chargée. Arrêtée.", 1 );
         notifyUser( "Machine chargée. Arrêtée.", 1 );
         EnableControls( false, false, false, true, true, true, true );

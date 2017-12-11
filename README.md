@@ -44,10 +44,6 @@ Toutes les explications nécessaires sont fournies dans cette page.
 ### Bonus
 - [Certaines machines](https://github.com/Naereen/jsTuring_fr/search?q=TP4&type=Code&utf8=✓) sont les solutions d'un TP donné à l'[ENSAI, Rennes](http://www.ensai.fr/) en novembre 2016 : [TP4 - Q3.1](https://github.com/Naereen/jsTuring_fr/blob/gh-pages/machines/TP4--Q3-1.txt), [Q3.2](https://github.com/Naereen/jsTuring_fr/blob/gh-pages/machines/TP4--Q3-2.txt), [Q3.3](https://github.com/Naereen/jsTuring_fr/blob/gh-pages/machines/TP4--Q3-3.txt), [Q3.4](https://github.com/Naereen/jsTuring_fr/blob/gh-pages/machines/TP4--Q3-4.txt), [Q3.5](https://github.com/Naereen/jsTuring_fr/blob/gh-pages/machines/TP4--Q3-5.txt), [Q3.6](https://github.com/Naereen/jsTuring_fr/blob/gh-pages/machines/TP4--Q3-6.txt).
 
-### TODO
-- traduire la doc en bas de page.
-- traduire les exemples donnés. Au moins utiliser q0 au lieu de 0
-
 ----
 
 ## :scroll: Licence ? [![GitHub license](https://img.shields.io/github/license/Naereen/jsTuring_fr.svg)](https://github.com/Naereen/jsTuring_fr/blob/master/LICENSE)

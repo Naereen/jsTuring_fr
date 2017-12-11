@@ -228,29 +228,27 @@
         <h2>Syntaxe :</h2>
 
         <ul>
-            <li>Chaque ligne doit contenir un tuple de la forme suivante : <b>'<code>&lt;état courant&gt; &lt;symbole lu&gt; &lt;nouveau symbole&gt; &lt;direction&gt; &lt;nouvel état&gt;</code>'</b> (5 valeurs, séparées par un espace). Par exemple, '<code>q0 1 1 r q0</code>'.</li>
+            <li>Chaque ligne doit contenir un tuple de la forme suivante : <b>'<code>&lt;état courant&gt; &lt;symbole lu&gt; &lt;nouveau symbole&gt; &lt;direction&gt; &lt;nouvel état&gt;</code>'</b> (5 valeurs, séparées par un espace). Par exemple, '<code>q0 1 1 d q0</code>'.</li>
 
             <li>Vous pouvez utiliser n'importe nombre nombre ou mot pour <b>les états</b> (<code>&lt;état courant&gt;</code> et <code>&lt;nouvel état&gt;</code>), e.g. <code>10, a, q1, état1</code>. Les étiquettes d'états sont sensibles aux majuscules. Par défaut, l'état initial est <code>q0</code>.</li>
 
             <li>Vous pouvez utiliser n'importe quel caractère du clavier pour <b>les symboles</b> (<code>&lt;symbole lu&gt;</code> et <code>&lt;nouveau symbole&gt;</code>), ou le caractère spécial '<code>_</code>' pour représenter le symbole blanc (espace, et pas '<code>#</code>). Les symboles lus et écrits sont sensibles aux majuscules.</li>
 
-            <li>La <b><code>&lt;direction&gt;</code></b> doit être '<code>l</code>', '<code>r</code>' ou '<code>*</code>', qui correspondent à la consigne 'aller à gauche' (gauche = left = l = '<code>l</code>'), 'aller à droite' (droite = right = '<code>r</code>') ou 'ne pas bouger', respectivement.</li>
-            <!-- FIXME translate 'l', 'r' to something more French -->
+            <li>La <b><code>&lt;direction&gt;</code></b> doit être '<code>g</code>', '<code>d</code>' ou '<code>*</code>', qui correspondent à la consigne 'aller à gauche' (gauche = '<code>g</code>'), 'aller à droite' (droite = '<code>d</code>') ou 'ne pas bouger', respectivement.</li>
 
             <li>Sur une ligne à part ou en fin de ligne, n'importe quoi après le symbole '<code>;</code>' est considéré comme un <b>commentaire</b>, et est ignoré. C'est une bonne idée de commenter votre code !</li>
 
-            <li>La machine <b>s'arrête</b> quand elle atteint n'importe quel état dont le nom commence par '<code>halt</code>', e.g., <code>halt, halt-accept</code> etc. Les états finaux sont considérés acceptants, pour un état final refusant, il faut bloquer la machine (i.e., plus aucune transition disponible).</li>
-            <!-- FIXME translate 'halt' to something more French -->
+            <li>La machine <b>s'arrête</b> quand elle atteint n'importe quel état dont le nom commence par '<code>stop</code>', e.g., <code>stop-fin, stop-accepte</code> etc. Les états finaux sont considérés acceptants, pour un état final refusant, il faut <emph>bloquer</emph> la machine (i.e., plus aucune transition disponible).</li>
         </ul>
 
         <h2>Autres remarques :</h2>
 
         <ul>
-            <li>Le symbole '<code>*</code>' peut être utilisé comme un masque (<i>wildcard</i>) pour le <code>&lt;symbole courant&gt;</code> ou l'<code>&lt;état courant&gt;</code>, dans ce cas '<code>*</code>' signifie qu'il accepte <i>n'importe quel</i> symbole, ou <i>n'importe quel</i> état. Par exemple '<code>q1 * _ l q1</code>' peut correspondre à un effacement de n'importe quel symbole, ou '<code>* X 1 r *</code>' une substitution forcée de '<code>X</code>' en '<code>1</code>'.</li>
+            <li>Le symbole '<code>*</code>' peut être utilisé comme un masque (<i>wildcard</i>) pour le <code>&lt;symbole courant&gt;</code> ou l'<code>&lt;état courant&gt;</code>, dans ce cas '<code>*</code>' signifie qu'il accepte <i>n'importe quel</i> symbole, ou <i>n'importe quel</i> état. Par exemple '<code>q1 * _ g q1</code>' peut correspondre à un effacement de n'importe quel symbole, ou '<code>* X 1 d *</code>' une substitution forcée de '<code>X</code>' en '<code>1</code>'.</li>
 
-            <li>Le symbole '<code>*</code>' peut aussi être utilisé comme <code>&lt;nouveau symbole&gt;</code> ou <code>&lt;nouvel état&gt;</code>, dans ce cas '<code>*</code>' signifie <b>"aucun changement"</b>. Cela permet d'éviter d'écrire de nombreuses transitions toutes similaires. Par exemple '<code>1 * * r 1</code>' plutôt que '<code>1 a a r 1</code>', '<code>1 b b r 1</code>', pour chaque lettre '<code>a</code>', '<code>b</code>'.</li>
+            <li>Le symbole '<code>*</code>' peut aussi être utilisé comme <code>&lt;nouveau symbole&gt;</code> ou <code>&lt;nouvel état&gt;</code>, dans ce cas '<code>*</code>' signifie <b>"aucun changement"</b>. Cela permet d'éviter d'écrire de nombreuses transitions toutes similaires. Par exemple '<code>1 * * d 1</code>' plutôt que '<code>1 a a d 1</code>', '<code>1 b b d 1</code>', pour chaque lettre '<code>a</code>', '<code>b</code>'.</li>
 
-            <li>Le symbole '<code>!</code>' peut être utilisé <i>à la fin</i> d'une ligne, pour mettre en place un <b>point d'arrêt</b>, e.g., '<code>1 a b r 2 !</code>'. La machine se mettre automatiquement en pause à chaque utilisation de cette transition.</li>
+            <li>Le symbole '<code>!</code>' peut être utilisé <i>à la fin</i> d'une ligne, pour mettre en place un <b>point d'arrêt</b>, e.g., '<code>1 a b d 2 !</code>'. La machine se mettre automatiquement en pause à chaque utilisation de cette transition.</li>
 
             <li>Vous pouvez spécifier la <b>position de départ</b> de la tête de lecture, en ajoutant un symbole '<code>*</code>' n'importe où dans le mot d'entrée (e.g., <code>w = 111_*11</code> permet de commencer au début du <code>11</code>).</li>
         </ul>
