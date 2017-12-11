@@ -13,30 +13,30 @@
 ; Exemple sortie : $101 = 5
 
 ; État q0 : état initial, le mot doit commencer par $
-q0 $ $ r q1
+q0 $ $ d q1
 
 ; État q1 : cherche le 1er symbole 0, en inversant les 1 et 0, puis va dans q2
 ; Ici, on propage la retenue -1 à droite (car le nombre est en binaire inversé)
-q1 0 1 r q1
-q1 1 0 r q2
+q1 0 1 d q1
+q1 1 0 d q2
 
 ; État q2 : cherche la fin du nombre, sans le toucher, puis va dans q3
-q2 0 0 r q2
-q2 1 1 r q2
-q2 _ _ l q3
+q2 0 0 d q2
+q2 1 1 d q2
+q2 _ _ g q3
 
 ; État q3 : efface les 0 vers la gauche, va dans q4 au 1er symbole 1, ou termine si fin du mot (q5)
-q3 $ $ r q5
-q3 0 _ l q3
-q3 1 1 l q4
+q3 $ $ d q5
+q3 0 _ g q3
+q3 1 1 g q4
 
 ; État q4 : retourne au début du nombre sans rien modifier
 q4 $ $ * q5
-q4 0 0 l q4
-q4 1 1 l q4
+q4 0 0 g q4
+q4 1 1 g q4
 
 ; État q5 : terminal et acceptant
-q5 * * * halt-accepte
+q5 * * * stop-accepte
 
 ; Astuce pour charger le ruban avec un mot initial intéressant.
 ;$INITIAL_TAPE:$011

@@ -10,38 +10,38 @@
 ; Exemple sortie : 11$101  = 3$5
 
 ; État q0 : on lit sans modifier tous les 1 et 0 du 1er mot, vers la droite, puis on fera le +1
-q0 $ $ l plus1G         ; on est à la fin du 1er mot : on commence à faire le calcul +1
+q0 $ $ g plus1G         ; on est à la fin du 1er mot : on commence à faire le calcul +1
 ; Note: si le mot d'entrée est 01*$011, on indique qu'on commence au $ (comme le disait le sujet), et donc pas besoin de ces transitions vers la droite
-q0 * * r q0             ; pas encore la fin du 1er mot
+q0 * * d q0             ; pas encore la fin du 1er mot
 
 ; État plus1G : on doit faire le +1, en étant à la fin du mot
 plus1G 0 1 * vaDroite   ; on a finit, on écrit la retenue, et c'est bon
-plus1G 1 0 l plus1G     ; on change le 1 en 0, on propage la retenue
+plus1G 1 0 g plus1G     ; on change le 1 en 0, on propage la retenue
 plus1G _ 1 * vaDroite   ; on a finit, en étant allé tout à gauche : on écrit la retenue, et c'est bon
 
 ; État vaDroite : on lit sans modifier tous les 1 et 0 du 1er mot, vers la droite, puis on fera le -1 en partant du $
-vaDroite $ $ r q1
-vaDroite * * r vaDroite
+vaDroite $ $ d q1
+vaDroite * * d vaDroite
 
 ; État q1 : cherche le 1er symbole 0, en inversant les 1 et 0, puis va dans q2
 ; Ici, on propage la retenue -1 à droite (car le nombre est en binaire inversé)
-q1 0 1 r q1
-q1 1 0 r q2
+q1 0 1 d q1
+q1 1 0 d q2
 
 ; État q2 : cherche la fin du nombre, sans le toucher, puis va dans q3
-q2 0 0 r q2
-q2 1 1 r q2
-q2 _ _ l q3
+q2 0 0 d q2
+q2 1 1 d q2
+q2 _ _ g q3
 
-; État q3 : efface les 0 vers la gauche, va dans q4 au 1er symbole 1, ou termine si fin du mot (halt-accepte)
-q3 $ $ * halt-accepte
-q3 0 _ l q3
-q3 1 1 l q4
+; État q3 : efface les 0 vers la gauche, va dans q4 au 1er symbole 1, ou termine si fin du mot (stop-accepte)
+q3 $ $ * stop-accepte
+q3 0 _ g q3
+q3 1 1 g q4
 
 ; État q4 : retourne au début du nombre de droite sans rien modifier
-q4 $ $ * halt-accepte
-q4 0 0 l q4
-q4 1 1 l q4
+q4 $ $ * stop-accepte
+q4 0 0 g q4
+q4 1 1 g q4
 
 ; Astuce pour charger le ruban avec un mot initial intéressant.
 ;$INITIAL_TAPE:01*$011

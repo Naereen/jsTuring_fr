@@ -9,55 +9,55 @@
 ; Exemple sortie : 10010  (18)
 
 ; État q0              : on cherche le symbole _ séparant les deux mots
-q0 _ _ r q1            ; trouvé, on va en q1
-q0 * * r q0            ; on cherche encore...
+q0 _ _ d q1            ; trouvé, on va en q1
+q0 * * d q0            ; on cherche encore...
 
 ; État q1              : on cherche la fin du 2ème mot
-q1 _ _ l q2            ; trouvé, on va en q2
-q1 * * r q1            ; on cherche encore...
+q1 _ _ g q2            ; trouvé, on va en q2
+q1 * * d q1            ; on cherche encore...
 
 ; État q2              : on lit le dernier bit du 2ème mot, qu'on va ajouter au 1er
-q2 0 _ l q3x           ; on efface le 0, on va en q3x : on doit ajouter un 0 (x pour 0)
-q2 1 _ l q3y           ; on efface le 0, on va en q3x : on doit ajouter un 1 (y pour 1)
-q2 _ _ l q7            ; si le 2ème mot est vide, on termine en nettoyant
+q2 0 _ g q3x           ; on efface le 0, on va en q3x : on doit ajouter un 0 (x pour 0)
+q2 1 _ g q3y           ; on efface le 0, on va en q3x : on doit ajouter un 1 (y pour 1)
+q2 _ _ g q7            ; si le 2ème mot est vide, on termine en nettoyant
 
 ; États q3, q3x et q3y : on retourne au 1er mot
-q3x _ _ l q4x          ; on est à la fin du 1er mot, on passe dans q4x
-q3x * * l q3x          ; on cherche encore...
-q3y _ _ l q4y          ; on est à la fin du 1er mot, on passe dans q4y
-q3y * * l q3y          ; on cherche encore...
+q3x _ _ g q4x          ; on est à la fin du 1er mot, on passe dans q4x
+q3x * * g q3x          ; on cherche encore...
+q3y _ _ g q4y          ; on est à la fin du 1er mot, on passe dans q4y
+q3y * * g q3y          ; on cherche encore...
 
 ; États q4, q4x et q4y : on fait ici l'addition en binaire
 ; on écrit des x ou y à la place de 0 et 1
 
 ; État q4x             : on doit ajouter 0, donc pas de calcul à faire
-q4x 0 x r q0           ; on transforme le dernier bit du 1er mot, 0 en x
-q4x 1 y r q0           ; on transforme le dernier bit du 1er mot, 1 en y
-q4x _ x r q0           ; si on a un 1er mot vide...
-q4x * * l q4x          ; on ignore les x ou y déjà écrits
+q4x 0 x d q0           ; on transforme le dernier bit du 1er mot, 0 en x
+q4x 1 y d q0           ; on transforme le dernier bit du 1er mot, 1 en y
+q4x _ x d q0           ; si on a un 1er mot vide...
+q4x * * g q4x          ; on ignore les x ou y déjà écrits
 
 ; État q4y             : on doit ajouter 1, ici il faut faire l'addition binaire
 ; on a l'état q5 spécial pour ce cas là
-q4y 1 0 l q4y          ; on propage la retenue : le 1 est remplacé par un 0, la retenue va à gauche
+q4y 1 0 g q4y          ; on propage la retenue : le 1 est remplacé par un 0, la retenue va à gauche
 q4y 0 1 * q5           ; on écrit la retenue, on va en q4, sur place
 q4y _ 1 * q5           ; on est tout à gauche à la fin du mot, on écrit la retenue
-q4y * * l q4y          ; on ignore les x ou y déjà écrits
+q4y * * g q4y          ; on ignore les x ou y déjà écrits
 
 ; État q5              : on cherche de la fin du 1er mot
-q5 x x l q6            ; on cherche encore...
-q5 y y l q6            ; on cherche encore...
-q5 _ _ l q6            ; trouvé, on va en q6
-q5 * * r q5            ; on ignore les 0 ou 1 déjà écrits
+q5 x x g q6            ; on cherche encore...
+q5 y y g q6            ; on cherche encore...
+q5 _ _ g q6            ; trouvé, on va en q6
+q5 * * d q5            ; on ignore les 0 ou 1 déjà écrits
 
 ; État q6              : on transforme le dernier symbole écrit, puis on recommence en q0
-q6 0 x r q0            ; 0 transformé en x (à re-transformer à la fin)
-q6 1 y r q0            ; 1 transformé en y (à re-transformer à la fin)
+q6 0 x d q0            ; 0 transformé en x (à re-transformer à la fin)
+q6 1 y d q0            ; 1 transformé en y (à re-transformer à la fin)
 
 ; État q7              : nettoyage et substitutions
-q7 x 0 l q7            ; on remplace tous les x par 0
-q7 y 1 l q7            ; on remplace tous les y par 1
-q7 _ _ r halt-accepte  ; on a finit de nettoyer, on termine en acceptant
-q7 * * l q7            ; on laisse en place les 0 et 1 déjà écrits
+q7 x 0 g q7            ; on remplace tous les x par 0
+q7 y 1 g q7            ; on remplace tous les y par 1
+q7 _ _ d stop-accepte  ; on a finit de nettoyer, on termine en acceptant
+q7 * * g q7            ; on laisse en place les 0 et 1 déjà écrits
 
 
 ; Astuce pour charger le ruban avec un mot initial intéressant.

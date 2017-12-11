@@ -12,20 +12,20 @@
 
 ; État q0 : on vérifie que le nombre est non vide
 ; D'abord, on lit sans modifier tous les 1 et 0 du mot, vers la droite
-q0 1 1 r nonNul               ; on a trouvé un 1 !
-q0 0 0 r q0                   ; on a pas encore trouvé le 1
-q0 _ _ * halt-erreurNombreNul ; on a aucun 1, on échoue car 0-1 n'est pas entier
+q0 1 1 d nonNul               ; on a trouvé un 1 !
+q0 0 0 d q0                   ; on a pas encore trouvé le 1
+q0 _ _ * stop-erreurNombreNul ; on a aucun 1, on échoue car 0-1 n'est pas entier
 
 ; État nonNul : on a vu un 1, on continue jusqu'à la fin, où ensuite on devra faire ce -1
-nonNul 1 1 r nonNul           ; on laisse les 1 et 0 en place
-nonNul 0 0 r nonNul           ; on laisse les 1 et 0 en place
-nonNul _ _ l retenue          ; on est à la fin du mot, on passe à la propagation de la retenue
+nonNul 1 1 d nonNul           ; on laisse les 1 et 0 en place
+nonNul 0 0 d nonNul           ; on laisse les 1 et 0 en place
+nonNul _ _ g retenue          ; on est à la fin du mot, on passe à la propagation de la retenue
 
 
 ; État retenue : on doit faire le -1, en étant à la fin du mot
-retenue 1 0 * halt-accepté     ; on a finit, on écrit la retenue, et c'est bon
-retenue 0 1 l retenue         ; on change le 0 en 1, on propage la retenue
-retenue _ 1 * halt-accepté     ; on a finit, en étant allé tout à gauche : on écrit la retenue, et c'est bon
+retenue 1 0 * stop-accepté     ; on a finit, on écrit la retenue, et c'est bon
+retenue 0 1 g retenue         ; on change le 0 en 1, on propage la retenue
+retenue _ 1 * stop-accepté     ; on a finit, en étant allé tout à gauche : on écrit la retenue, et c'est bon
 
 
 ; Astuce pour charger le ruban avec un mot initial intéressant.

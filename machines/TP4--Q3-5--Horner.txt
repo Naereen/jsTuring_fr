@@ -39,23 +39,23 @@ q0 * * * effacePremiersZero
 
 ; Machine initiale : on va ajouter DB à gauche du mot binaire
 ; D'abord on efface les 0 au début du mot binaire
-effacePremiersZero 0 _ r effacePremiersZero
+effacePremiersZero 0 _ d effacePremiersZero
 effacePremiersZero * * * ajout_DB
-ajout_DB 1 1 l ajout_DB
-ajout_DB _ B l ajout_D
+ajout_DB 1 1 g ajout_DB
+ajout_DB _ B g ajout_D
 ajout_D   _ D * adretour
 
 ; Machine +1 :
 ;  - fait la multiplication par deux dans alle_mul_1
 ;  - puis va dans l'état ad0_fin pour ajouter 1 au nombre décimal
 ; État ad0 : on recherche la fin du nombre décimal
-ad0 _ _ l alle_mul_1
-ad0 * * r ad0
+ad0 _ _ g alle_mul_1
+ad0 * * d ad0
 
 ; Machine ad_fin : On additionne 1
 ; État ad0_fin : on recherche la fin du nombre décimal
-ad0_fin _ _ l ad1_fin
-ad0_fin * * r ad0_fin
+ad0_fin _ _ g ad1_fin
+ad0_fin * * d ad0_fin
 
 ; État ad1_fin : on additionne 1
 ad1_fin 0 1 * adretour
@@ -67,112 +67,112 @@ ad1_fin 5 6 * adretour
 ad1_fin 6 7 * adretour
 ad1_fin 7 8 * adretour
 ad1_fin 8 9 * adretour
-ad1_fin 9 0 l ad1_fin   ; retenue à propager à gauche
+ad1_fin 9 0 g ad1_fin   ; retenue à propager à gauche
 ad1_fin _ 1 * adretour
-ad1_fin D 1 l rajoutD   ; on doit rajouter D au début du nombre décimal
+ad1_fin D 1 g rajoutD   ; on doit rajouter D au début du nombre décimal
 
 ; Machine retour, on se déplace, du nombre décimal au nombre binaire
-adretour B _ r lecture  ; début du décimal, on lit un bit
-adretour * * r adretour
+adretour B _ d lecture  ; début du décimal, on lit un bit
+adretour * * d adretour
 
 ; Machine lecture : on lit le premier chiffre du nombre binaire restant, que l'on efface (on s'en est servi)
-lecture 0 B l alle_mul    ; on doit multiplier le décimal par 2
-lecture 1 B l alle_ad     ; on doit *2 puis +1 au décimal
-lecture _ _ l retourDeci  ; on a fini : nombre binaire vide, on doit nettoyer le ruban
+lecture 0 B g alle_mul    ; on doit multiplier le décimal par 2
+lecture 1 B g alle_ad     ; on doit *2 puis +1 au décimal
+lecture _ _ g retourDeci  ; on a fini : nombre binaire vide, on doit nettoyer le ruban
 
 ; Machine alle_mul_1 : on va du nombre binaire au nombre décimal en sachant qu'il faudra le multiplier par 2 puis lui ajouter 1
-alle_mul_1 D D r mult0_1
-alle_mul_1 * * l alle_mul_1
-alle_mul_1 _ _ l alle_mul_1
+alle_mul_1 D D d mult0_1
+alle_mul_1 * * g alle_mul_1
+alle_mul_1 _ _ g alle_mul_1
 
 ; Machine mult par 2 : multiplie le nombre décimal par 2
 ; État mult0_1 : rien à faire
-mult0_1 _ _ l mult1_1  ; on doit propager un *2 à gauche
-mult0_1 * * r mult0_1
+mult0_1 _ _ g mult1_1  ; on doit propager un *2 à gauche
+mult0_1 * * d mult0_1
 
 ; État mult1_1 : on multiplie le chiffre lu par 2
-mult1_1 0 0 l mult1_1     ; 0 * 2 = 0  : sans retenue
-mult1_1 1 2 l mult1_1     ; 1 * 2 = 2  : sans retenue
-mult1_1 2 4 l mult1_1     ; 2 * 2 = 4  : sans retenue
-mult1_1 3 6 l mult1_1     ; 3 * 2 = 6  : sans retenue
-mult1_1 4 8 l mult1_1     ; 4 * 2 = 8  : sans retenue
-mult1_1 5 0 l mult2_1     ; 5 * 2 = 10 : on doit propager la retenue +1 au chiffre à gauche
-mult1_1 6 2 l mult2_1     ; 6 * 2 = 12 : on doit propager la retenue +1 au chiffre à gauche
-mult1_1 7 4 l mult2_1     ; 7 * 2 = 14 : on doit propager la retenue +1 au chiffre à gauche
-mult1_1 8 6 l mult2_1     ; 8 * 2 = 16 : on doit propager la retenue +1 au chiffre à gauche
-mult1_1 9 8 l mult2_1     ; 9 * 2 = 18 : on doit propager la retenue +1 au chiffre à gauche
-mult1_1 _ _ r ad0_fin  ; on a fini, on va se déplacer à droite
-mult1_1 D D r ad0_fin  ; on a fini, on va se déplacer à droite
+mult1_1 0 0 g mult1_1     ; 0 * 2 = 0  : sans retenue
+mult1_1 1 2 g mult1_1     ; 1 * 2 = 2  : sans retenue
+mult1_1 2 4 g mult1_1     ; 2 * 2 = 4  : sans retenue
+mult1_1 3 6 g mult1_1     ; 3 * 2 = 6  : sans retenue
+mult1_1 4 8 g mult1_1     ; 4 * 2 = 8  : sans retenue
+mult1_1 5 0 g mult2_1     ; 5 * 2 = 10 : on doit propager la retenue +1 au chiffre à gauche
+mult1_1 6 2 g mult2_1     ; 6 * 2 = 12 : on doit propager la retenue +1 au chiffre à gauche
+mult1_1 7 4 g mult2_1     ; 7 * 2 = 14 : on doit propager la retenue +1 au chiffre à gauche
+mult1_1 8 6 g mult2_1     ; 8 * 2 = 16 : on doit propager la retenue +1 au chiffre à gauche
+mult1_1 9 8 g mult2_1     ; 9 * 2 = 18 : on doit propager la retenue +1 au chiffre à gauche
+mult1_1 _ _ d ad0_fin  ; on a fini, on va se déplacer à droite
+mult1_1 D D d ad0_fin  ; on a fini, on va se déplacer à droite
 
 ; État mult2_1 : on écrit la retenue, et on continue la multiplication par 2
-mult2_1 0 1 l mult1_1     ; 0 * 2 + 1 = 1  : sans retenue
-mult2_1 1 3 l mult1_1     ; 1 * 2 + 1 = 3  : sans retenue
-mult2_1 2 5 l mult1_1     ; 2 * 2 + 1 = 5  : sans retenue
-mult2_1 3 7 l mult1_1     ; 3 * 2 + 1 = 7  : sans retenue
-mult2_1 4 9 l mult1_1     ; 4 * 2 + 1 = 9  : sans retenue
-mult2_1 5 1 l mult2_1     ; 5 * 2 + 1 = 11 : on doit propager la retenue +1 au chiffre à gauche
-mult2_1 6 3 l mult2_1     ; 6 * 2 + 1 = 13 : on doit propager la retenue +1 au chiffre à gauche
-mult2_1 7 5 l mult2_1     ; 7 * 2 + 1 = 15 : on doit propager la retenue +1 au chiffre à gauche
-mult2_1 8 7 l mult2_1     ; 8 * 2 + 1 = 17 : on doit propager la retenue +1 au chiffre à gauche
-mult2_1 9 9 l mult2_1     ; 9 * 2 + 1 = 19 : on doit propager la retenue +1 au chiffre à gauche
-mult2_1 D 1 l rajoutD   ; on écrit la retenue puis on rajoute un D à gauche
+mult2_1 0 1 g mult1_1     ; 0 * 2 + 1 = 1  : sans retenue
+mult2_1 1 3 g mult1_1     ; 1 * 2 + 1 = 3  : sans retenue
+mult2_1 2 5 g mult1_1     ; 2 * 2 + 1 = 5  : sans retenue
+mult2_1 3 7 g mult1_1     ; 3 * 2 + 1 = 7  : sans retenue
+mult2_1 4 9 g mult1_1     ; 4 * 2 + 1 = 9  : sans retenue
+mult2_1 5 1 g mult2_1     ; 5 * 2 + 1 = 11 : on doit propager la retenue +1 au chiffre à gauche
+mult2_1 6 3 g mult2_1     ; 6 * 2 + 1 = 13 : on doit propager la retenue +1 au chiffre à gauche
+mult2_1 7 5 g mult2_1     ; 7 * 2 + 1 = 15 : on doit propager la retenue +1 au chiffre à gauche
+mult2_1 8 7 g mult2_1     ; 8 * 2 + 1 = 17 : on doit propager la retenue +1 au chiffre à gauche
+mult2_1 9 9 g mult2_1     ; 9 * 2 + 1 = 19 : on doit propager la retenue +1 au chiffre à gauche
+mult2_1 D 1 g rajoutD   ; on écrit la retenue puis on rajoute un D à gauche
 
 
 ; Machine alle_mul : on va du nombre binaire au nombre décimal en sachant qu'il faudra le multiplier par 2
-alle_mul D D r mult0
-alle_mul * * l alle_mul
-alle_mul _ _ l alle_mul
+alle_mul D D d mult0
+alle_mul * * g alle_mul
+alle_mul _ _ g alle_mul
 
 ; Machine alle_ad : on va du nombre binaire au nombre décimal en sachant qu'il faudra le multiplier par 2 puis lui ajouter 1
-alle_ad D D r ad0        ; on a trouve le début du nombre décimal
-alle_ad * * l alle_ad
+alle_ad D D d ad0        ; on a trouve le début du nombre décimal
+alle_ad * * g alle_ad
 
 ; Machine alle_ad_fin
-alle_ad_fin D D r ad0_fin
-alle_ad_fin * * l alle_ad_fin
+alle_ad_fin D D d ad0_fin
+alle_ad_fin * * g alle_ad_fin
 
 
 ; Machine mult par 2 : multiplie le nombre décimal par 2
 ; État mult0 : rien à faire
-mult0 _ _ l mult1  ; on doit propager un *2 à gauche
-mult0 * * r mult0
+mult0 _ _ g mult1  ; on doit propager un *2 à gauche
+mult0 * * d mult0
 
 ; État mult1 : on multiplie le chiffre lu par 2
-mult1 0 0 l mult1     ; 0 * 2 = 0  : sans retenue
-mult1 1 2 l mult1     ; 1 * 2 = 2  : sans retenue
-mult1 2 4 l mult1     ; 2 * 2 = 4  : sans retenue
-mult1 3 6 l mult1     ; 3 * 2 = 6  : sans retenue
-mult1 4 8 l mult1     ; 4 * 2 = 8  : sans retenue
-mult1 5 0 l mult2     ; 5 * 2 = 10 : on doit propager la retenue +1 au chiffre à gauche
-mult1 6 2 l mult2     ; 6 * 2 = 12 : on doit propager la retenue +1 au chiffre à gauche
-mult1 7 4 l mult2     ; 7 * 2 = 14 : on doit propager la retenue +1 au chiffre à gauche
-mult1 8 6 l mult2     ; 8 * 2 = 16 : on doit propager la retenue +1 au chiffre à gauche
-mult1 9 8 l mult2     ; 9 * 2 = 18 : on doit propager la retenue +1 au chiffre à gauche
-mult1 _ _ r adretour  ; on a fini, on va se déplacer à droite
-mult1 D D r adretour  ; on a fini, on va se déplacer à droite
+mult1 0 0 g mult1     ; 0 * 2 = 0  : sans retenue
+mult1 1 2 g mult1     ; 1 * 2 = 2  : sans retenue
+mult1 2 4 g mult1     ; 2 * 2 = 4  : sans retenue
+mult1 3 6 g mult1     ; 3 * 2 = 6  : sans retenue
+mult1 4 8 g mult1     ; 4 * 2 = 8  : sans retenue
+mult1 5 0 g mult2     ; 5 * 2 = 10 : on doit propager la retenue +1 au chiffre à gauche
+mult1 6 2 g mult2     ; 6 * 2 = 12 : on doit propager la retenue +1 au chiffre à gauche
+mult1 7 4 g mult2     ; 7 * 2 = 14 : on doit propager la retenue +1 au chiffre à gauche
+mult1 8 6 g mult2     ; 8 * 2 = 16 : on doit propager la retenue +1 au chiffre à gauche
+mult1 9 8 g mult2     ; 9 * 2 = 18 : on doit propager la retenue +1 au chiffre à gauche
+mult1 _ _ d adretour  ; on a fini, on va se déplacer à droite
+mult1 D D d adretour  ; on a fini, on va se déplacer à droite
 
 ; État mult2 : on écrit la retenue, et on continue la multiplication par 2
-mult2 0 1 l mult1     ; 0 * 2 + 1 = 1  : sans retenue
-mult2 1 3 l mult1     ; 1 * 2 + 1 = 3  : sans retenue
-mult2 2 5 l mult1     ; 2 * 2 + 1 = 5  : sans retenue
-mult2 3 7 l mult1     ; 3 * 2 + 1 = 7  : sans retenue
-mult2 4 9 l mult1     ; 4 * 2 + 1 = 9  : sans retenue
-mult2 5 1 l mult2     ; 5 * 2 + 1 = 11 : on doit propager la retenue +1 au chiffre à gauche
-mult2 6 3 l mult2     ; 6 * 2 + 1 = 13 : on doit propager la retenue +1 au chiffre à gauche
-mult2 7 5 l mult2     ; 7 * 2 + 1 = 15 : on doit propager la retenue +1 au chiffre à gauche
-mult2 8 7 l mult2     ; 8 * 2 + 1 = 17 : on doit propager la retenue +1 au chiffre à gauche
-mult2 9 9 l mult2     ; 9 * 2 + 1 = 19 : on doit propager la retenue +1 au chiffre à gauche
-mult2 D 1 l rajoutD   ; on écrit la retenue puis on rajoute un D à gauche
+mult2 0 1 g mult1     ; 0 * 2 + 1 = 1  : sans retenue
+mult2 1 3 g mult1     ; 1 * 2 + 1 = 3  : sans retenue
+mult2 2 5 g mult1     ; 2 * 2 + 1 = 5  : sans retenue
+mult2 3 7 g mult1     ; 3 * 2 + 1 = 7  : sans retenue
+mult2 4 9 g mult1     ; 4 * 2 + 1 = 9  : sans retenue
+mult2 5 1 g mult2     ; 5 * 2 + 1 = 11 : on doit propager la retenue +1 au chiffre à gauche
+mult2 6 3 g mult2     ; 6 * 2 + 1 = 13 : on doit propager la retenue +1 au chiffre à gauche
+mult2 7 5 g mult2     ; 7 * 2 + 1 = 15 : on doit propager la retenue +1 au chiffre à gauche
+mult2 8 7 g mult2     ; 8 * 2 + 1 = 17 : on doit propager la retenue +1 au chiffre à gauche
+mult2 9 9 g mult2     ; 9 * 2 + 1 = 19 : on doit propager la retenue +1 au chiffre à gauche
+mult2 D 1 g rajoutD   ; on écrit la retenue puis on rajoute un D à gauche
 
 ; Machine rajout : permet de rajouter D au début si besoin
-rajoutD     * D r adretour
-rajoutD_mul * D r alle_mul
+rajoutD     * D d adretour
+rajoutD_mul * D d alle_mul
 
 ; Machine nettoyage final
 ; on retourne au début du mot décimal, on efface D
-retourDeci _ _ l retourDeci    ; on ignore les blancs
+retourDeci _ _ g retourDeci    ; on ignore les blancs
 retourDeci * * * nettoyage     ; premier symbole non blanc, on commence a nettoyer
-nettoyage  D _ r halt-termine   ; on efface D, on a enfin fini, sur le début du mot de sortie
-nettoyage  * * l nettoyage      ; on parcourt le mot décimal
+nettoyage  D _ d stop-termine   ; on efface D, on a enfin fini, sur le début du mot de sortie
+nettoyage  * * g nettoyage      ; on parcourt le mot décimal
 
 ;$INITIAL_TAPE:1110100001011011010

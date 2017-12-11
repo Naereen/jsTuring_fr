@@ -10,7 +10,7 @@
 
 ; État q0
 ; D'abord, on lit sans modifier tous les 1 du 1er mot, vers la droite
-q0 1 1 r q0
+q0 1 1 d q0
 
 ; Ensuite, au premier _ on a finit de lire le 1er mot, on écrit un 1 de plus, on accepte
 q0 _ 1 * halt-accepte
