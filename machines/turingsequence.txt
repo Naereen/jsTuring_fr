@@ -8,7 +8,7 @@
 
 
 ; Start in state 'b'
-0 * * * b0
+q0 * * * b0
 
 ; Turing's state 'b'
 b0 * e r b1
@@ -23,15 +23,15 @@ o0 1 * r o1
 o1 * x l o2
 o2 * * l o3
 o3 * * l o0
-o0 0 0 * q0
+o0 0 0 * q1
 
 ; Turing's state 'q'
-q0 _ 1 l p0
-q0 * * r q1
-q1 * * r q0
+q1 _ 1 l p0
+q1 * * r q2
+q2 * * r q1
 
 ; Turing's state 'p'
-p0 x _ r q0
+p0 x _ r q1
 p0 e * r f0
 p0 _ * l p1
 p1 * * l p0
@@ -41,6 +41,5 @@ f0 _ 0 l f1
 f1 * * l o0
 f0 * * r f2
 f2 * * r f0
-
 
 ; Run with a blank initial tape: $INITIAL_TAPE: 

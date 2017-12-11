@@ -5,7 +5,7 @@
 ; This is very inefficient and slow, so be prepared to wait!
 
 ; set up environment
-0 * * l 1
+q0 * * l 1
 1 * a r 2
 2 _ b l 3
 2 * * r 2
@@ -52,7 +52,6 @@
 23 d d r 50
 23 * * r 23
 
-
 ; copy c to d (assuming d is blank and head is on or left of c)
 50 c c r 51
 50 x x r 51
@@ -68,7 +67,6 @@
 53 x 0 l 53
 53 y 1 l 53
 53 c c r 60
-
 
 ; subtract d from b
 60 _ _ l 61
@@ -87,7 +85,6 @@
 71 * _ l 71
 72 c c * 50
 72 * * l 72
-
 
 ; decrement c, clear d
 80 _ _ l 81a
@@ -169,7 +166,6 @@
 103 d d l 200
 103 * * r 103
 
-
 ; found a factor, but need to check if it is 1 or > 1.
 ; assuming we are one cell left of d, and d is blank.
 ; try to decrement c twice.
@@ -223,6 +219,5 @@
 614 * m r 615
 615 * e r 616
 616 * . * halt
-
 
 ; $INITIAL_TAPE: 101

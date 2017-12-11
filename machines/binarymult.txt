@@ -6,7 +6,7 @@
 ; The machine stores data on the tape in the configuration "tally num1 num2" where num1, num2 are the input and tally is the running total for the product.
 
 ; Set up tally
-0 * * l 1
+q0 * * l 1
 1 _ _ l 2
 2 _ 0 r 3
 3 _ _ r 10
@@ -17,12 +17,10 @@
 10 0 0 r 10
 10 1 1 r 10
 
-
 ; If last digit of num1 is 0, multiply num2 by 2
 11 0 x r 20
 ; If last digit of num1 is 1, add num2 to tally and then multiply num2 by 2
 11 1 x r 30
-
 
 ; Multiply num2 by 2
 20 _ _ r 20
@@ -74,7 +72,7 @@
 
 ; Adding a 1 to tally
 50 _ _ l 51 ; Found end of num2
-50 * * l 50 
+50 * * l 50
 51 _ _ l 51
 51 * * l 52 ; Found start of num1
 52 _ _ l 53 ; Found end of num1

@@ -3,7 +3,7 @@
 ; It does this by successively incrementing the decimal counter and decrementing the binary input until 0 is reached.
 ; Input: A single number in binary.
 
-0 * * * 1
+q0 * * * 1
 1 _ _ r 1
 1 * * r 1a
 1a * * r 1a
@@ -34,6 +34,5 @@
 21 * * l 21a
 21a * * l 21a
 21a _ _ r halt
-
 
 ; Load an appropriate initial tape. $INITIAL_TAPE: 10110

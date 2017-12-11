@@ -2,13 +2,12 @@
 ; This example program checks if the input string is a binary palindrome.
 ; Input: a string of 0's and 1's, eg '1001001'
 
-
 ; Machine starts in state 0.
 
-; State 0: read the leftmost symbol
-0 0 _ r 1o
-0 1 _ r 1i
-0 _ _ * accept     ; Empty input
+; State q0: read the leftmost symbol
+q0 0 _ r 1o
+q0 1 _ r 1i
+q0 _ _ * accept     ; Empty input
 
 ; State 1o, 1i: find the rightmost symbol
 1o _ _ l 2o
@@ -30,7 +29,7 @@
 3 _ _ * accept
 3 * * l 4
 4 * * l 4
-4 _ _ r 0  ; Back to the beginning
+4 _ _ r q0  ; Back to the beginning
 
 accept * : r accept2
 accept2 * ) * halt-accept

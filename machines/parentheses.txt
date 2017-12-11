@@ -9,14 +9,12 @@
 ; Exercise: Extend this to handle other delimiters eg [], {}
 
 ; Set up stack
-0 * * l 1
+q0 * * l 1
 1 _ ! r 51
 
 ; Find first non-blank
 5 _ _ r 5
 5 * * * 10
-
-
 
 ; Find first ( or )
 10 ( ! l 20
@@ -24,13 +22,11 @@
 10 _ _ l 40
 10 * ! r 10
 
-
 ; Push ( onto stack
 20 ! ! l 20
 20 * * * 21
 21 _ ( r 50
 21 * * l 21
-
 
 ; Pop ( from stack
 30 ! ! l 30
@@ -40,12 +36,10 @@
 32 ( _ r 50
 32 ! ! * 80  ; Trying to decrement below 0, unbalanced parentheses, missing (
 
-
 ; Reached end-of-input, check if stack is empty
 40 ! ! l 40
 40 _ _ r 60 ; Stack is empty, parentheses are balanced
 40 * * l 70 ; Stack is not empty, unbalanced parentheses, missing )
-
 
 ; Finished increment/decrement, return to start
 50 ! ! r 51
@@ -53,7 +47,6 @@
 50 * * r 50
 51 ! ! r 51
 51 * * * 10
-
 
 ; Parentheses balanced
 60 ! _ r 60

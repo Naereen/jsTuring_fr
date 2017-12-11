@@ -11,7 +11,7 @@
 ; ----------------------------------------------------------------
 ; This UTM simulates 3-symbol Turing machines whose symbol set is {blank, 0, 1}.
 ; ----------------------------------------------------------------
-; A specification of the input format can be found in the file utm.pdf 
+; A specification of the input format can be found in the file utm.pdf
 ; in the Dropbox folder linked from http://tinyurl.com/M269resources.
 ; ----------------------------------------------------------------
 ; Example inputs:
@@ -25,11 +25,11 @@
 ;     [ R+++++++, R+, R++! L++,0R.,1R.: L++,0R.,1R.: R++++, L++, L+++++: R+++, L++++, L+: R++,0L+,1L+: R------,0L.,1L.:1L++,,:0L+, L., L.:,,:]1001
 ; ----------------------------------------------------------------
 
-; initial state 0
+; initial state q0
 
-; 0: move to initial current cell
-0 ] ] r go
-0 * * r 0
+; q0: move to initial current cell
+q0 ] ] r go
+q0 * * r q0
 
 ; go: execute transition rule
 go _ _ l getStateB
@@ -78,13 +78,13 @@ write1 * 1 l getShift
 getShift # # l getShift2
 getShift < < l getShift2
 getShift > > l getShift2
-getShift * * l getShift 
+getShift * * l getShift
 getShift2 L L r doShiftL
 getShift2 R R l doShiftR
 getShift2 * * l getShift2
 
 ; doShiftL/shiftL*: shift left
-doShiftL ] _ l shiftLBra 
+doShiftL ] _ l shiftLBra
 doShiftL * * r doShiftL
 shiftLBra , ] l shiftLCom
 shiftLBra : ] l shiftLCol
@@ -275,12 +275,12 @@ shiftR1Step * * l shiftR1
 shiftREnd * [ r changeStateR
 
 ; changeState*: change to new state (when done, restart)
-changeState # . r 0
-changeState [ [ r 0
+changeState # . r q0
+changeState [ [ r q0
 changeState < - r downState
 changeState > + r upState
 changeState * * l changeState
-changeStateR # . r 0
+changeStateR # . r q0
 changeStateR < - r downState
 changeStateR > + r upState
 changeStateR * * r changeStateR

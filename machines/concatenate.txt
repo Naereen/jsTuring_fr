@@ -10,8 +10,8 @@
 ;
 ; This example program concatenates the first string of '1's to the end of the second.
 
-0 0 0 r 0
-0 1 x r 1
+q0 0 0 r q0
+q0 1 x r 1
 1 1 1 r 1
 1 0 0 r 2
 2 0 0 r 2
@@ -25,7 +25,7 @@
 5 1 1 l 6
 5 x x * halt
 6 1 1 l 6
-6 x x r 0
-6 0 0 r 0
+6 x x r q0
+6 0 0 r q0
 
 ; This is a hack to load an appropriate initial tape. $INITIAL_TAPE: 11110011111

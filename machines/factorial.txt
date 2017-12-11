@@ -3,10 +3,9 @@
 
 ; INCOMPLETE - needs finishing from state 90 onwards
 
-
 ; Set up tape
-0 _ _ r 1
-0 * * r 0
+q0 _ _ r 1
+q0 * * r q0
 1 _ 1 l 2
 2 _ _ l 3
 3 _ _ l 4
@@ -19,14 +18,12 @@
 10 0 0 r 10
 10 1 1 r 10
 
-
 ; Find next digit of num1 and act appropriately
 11 x x l 11
 11 y y l 11
 11 _ _ r 90 ; Finished multiplication
 11 0 x r 20 ; Next digit is 0, multiply num2 by 2
 11 1 y r 30 ; Next digit of num1 is 1, add num2 to tally and then multiply num2 by 2
-
 
 ; Multiply num2 by 2
 20 _ _ r 20
@@ -78,7 +75,7 @@
 
 ; Adding a 1 to tally
 50 _ _ l 51 ; Found end of num2
-50 * * l 50 
+50 * * l 50
 51 _ _ l 51
 51 * * l 52 ; Found start of num1
 52 _ _ l 53 ; Found end of num1
