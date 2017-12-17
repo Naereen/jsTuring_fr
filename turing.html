@@ -13,7 +13,8 @@
     <![endif]-->
     <!--[if lt IE 8]>
     <link rel="stylesheet" type="text/css" href="css/ie-fixes.min.css">
-    <![endif]--><!-- Conditional comments for old IE versions. Adjust or disable line highlighting and load Javscript polyfills if needed for old IE versions. !-->
+    <![endif]-->
+    <!-- Conditional comments for old IE versions. Adjust or disable line highlighting and load Javscript polyfills if needed for old IE versions. !-->
     <script type="text/javascript" defer="defer" src="js/jsturing.min.js"></script>
     <script type="text/javascript" defer="defer" src="js/notify.min.js"></script>
 </head>
@@ -24,92 +25,93 @@
 
         <div class="backlinks">
             [
-            <a href="http://morphett.info/">Auteur</a>,
-            <a href="https://github.com/Naereen/jsTuring_fr">Traduction</a>,
-            <a href="http://rubens.ens-lyon.fr/">machine de Turing en LÉGO ?</a>
+                <a href="http://morphett.info/">Auteur</a>,
+                <a href="https://github.com/Naereen/jsTuring_fr">Traduction</a>,
+                <a href="http://rubens.ens-lyon.fr/">machine de Turing en LÉGO ?</a>
             ]
         </div>
 
         <div id="IntroText">
             <h2>Bienvenue</h2>
-            Ceci est un simulateur de <a href="https://fr.wikipedia.org/wiki/Machine_de_Turing">Machine de Turing</a>.
-            Pour s'en servir :<br>
-
+            Ceci est un simulateur de <a href="https://fr.wikipedia.org/wiki/Machine_de_Turing">Machine de Turing</a>. Pour s'en servir :<br>
             <ol>
                 <li>
-                <a href="#LoadMenu" onclick="$('#LoadMenu').slideDown();">Chargez un des programmes fournis en exemple</a>,
-                ou écrivez votre propre machine de Turing, dans la zone de texte ci-dessous.
-                Lisez <a href="#SyntaxInfo">ce paragraphe à propos de la syntaxe</a>.
+                    <a href="#LoadMenu" onclick="$('#LoadMenu').slideDown();">Chargez un des programmes fournis en exemple</a>, ou écrivez votre propre machine de Turing, dans la zone de texte ci-dessous. Lisez <a href="#SyntaxInfo">ce paragraphe à propos de la syntaxe</a>.
                 </li>
-
                 <li>
-                Entrez quelque chose dans la zone de texte 'Entrée' : ce mot sera écrit sur le ruban avant le calcul (mot d'entrée).
-                Cliquez sur 'Réinitialiser' pour remettre la machine comme au début.
+                    Entrez quelque chose dans la zone de texte 'Entrée' : ce mot sera écrit sur le ruban avant le calcul (mot d'entrée). Cliquez sur 'Réinitialiser' pour remettre la machine comme au début.
                 </li>
-
                 <li>
-                Cliquez sur 'Lancer' pour commencer le calcul de la machine de Turing, et l'exécuter jusqu'à ce qu'elle termine (si elle termine...).
-                Cliquez sur 'Pause' pour mettre en pause la machine pendant un calcul.
-                Vous pouvez aussi utiliser 'Étape' pour faire une seule étape de calcul (c'est utile pour visualiser lentement le comportement d'une machine).</li>
-
-                <li>Cliquer 'Réinitialiser' pour restaurer la machine de Turing dans son état initial, effacer son ruban etc, pour permettre de l'exécuter encore.</li>
+                    Cliquez sur 'Lancer' pour commencer le calcul de la machine de Turing, et l'exécuter jusqu'à ce qu'elle termine (si elle termine...). Cliquez sur 'Pause' pour mettre en pause la machine pendant un calcul. Vous pouvez aussi utiliser 'Étape' pour faire
+                    une seule étape de calcul (c'est utile pour visualiser lentement le comportement d'une machine).</li>
+                <li>
+                    Cliquer 'Réinitialiser' pour restaurer la machine de Turing dans son état initial, effacer son ruban etc, pour permettre de l'exécuter encore.
+                </li>
             </ol>
         </div>
     </div>
 
-  <div id="Machine">
-   <div id="MachineTapeContainer">
-    <div class="BoxTitle"><a href="#Machine">Ruban</a></div>
-    <div id="MachineTape" class="MachineStatusBox" title="Ceci est le ruban de la machine de Turing. La position de la tête de lecture est indiquée par la cellule colorée, et par la flèche.">
-     <!-- the following pre elements must be on a single line with no whitespace between them !-->
-     <div id="RunningTapeDisplay"><div id="TapeValues"><pre id="LeftTape" class="tape"></pre><div id="ActiveTapeArea"><pre id="ActiveTape" class="tape"> </pre><div id="MachineHead"><div class="HeadTop"></div><div class="HeadBody">Tête</div></div></div><pre id="RightTape" class="tape"></pre></div></div>
-    </div>
-   </div>
+    <div id="Machine">
+        <div id="MachineTapeContainer">
+            <div class="BoxTitle"><a href="#Machine">Ruban</a></div>
+            <div id="MachineTape" class="MachineStatusBox" title="Ceci est le ruban de la machine de Turing. La position de la tête de lecture est indiquée par la cellule colorée, et par la flèche.">
+                <!-- the following pre elements must be on a single line with no whitespace between them !-->
+                <div id="RunningTapeDisplay">
+                    <div id="TapeValues"><pre id="LeftTape" class="tape"></pre>
+                        <div id="ActiveTapeArea"><pre id="ActiveTape" class="tape"> </pre>
+                            <div id="MachineHead">
+                                <div class="HeadTop"></div>
+                                <div class="HeadBody">Tête</div>
+                            </div>
+                        </div><pre id="RightTape" class="tape"></pre></div>
+                </div>
+            </div>
+        </div>
 
-   <div id="MachineMiddleSection">
-    <div id="MachineStatusMsgWrapper">
-      <pre id="MachineStatusMsgText">
-      </pre>
-      <div id="MachineStatusMsgBg"></div>
-    </div>
+        <div id="MachineMiddleSection">
+            <div id="MachineStatusMsgWrapper">
+                <pre id="MachineStatusMsgText">
+</pre>
+                <div id="MachineStatusMsgBg"></div>
+            </div>
 
-    <div id="MachineStateContainer" class="MachineStatusContainer" title="Ceci indique l'état courant de la machine.">
-     <div class="BoxTitle">État courant</div>
-     <div id="MachineState" class="MachineStatusBox">
- - 
-     </div>
-    </div>
+            <div id="MachineStateContainer" class="MachineStatusContainer" title="Ceci indique l'état courant de la machine.">
+                <div class="BoxTitle">État courant</div>
+                <div id="MachineState" class="MachineStatusBox">
+                    -
+                </div>
+            </div>
 
-    <div id="MachineStepsContainer" class="MachineStatusContainer" title="Ceci est le nombre d'étapes effectuées depuis le début du calcul (nombre total de transitions empruntées)">
-     <div class="BoxTitle">Étapes</div>
-     <div id="MachineSteps" class="MachineStatusBox">
- - 
-     </div>
-    </div>
-   </div>
-   <div class="cleardiv"></div>
+            <div id="MachineStepsContainer" class="MachineStatusContainer" title="Ceci est le nombre d'étapes effectuées depuis le début du calcul (nombre total de transitions empruntées)">
+                <div class="BoxTitle">Étapes</div>
+                <div id="MachineSteps" class="MachineStatusBox">
+                    -
+                </div>
+            </div>
+        </div>
+        <div class="cleardiv"></div>
 
-   <div id="MachineLowerSection">
-    <div id="MachineLowerSection2">
+        <div id="MachineLowerSection">
+            <div id="MachineLowerSection2">
 
-     <div id="MachineProgramContainer">
-      <div class="BoxTitle">Code des transitions de la Machine de Turing</div>
-      <div id="MachineProgramBlock">
-       <div id="MachineProgramBlock2">
-        <div id="SourceContainer">
-         <div id="SourceBackground">
-         </div>
-         <div id="tabackground">
-<!-- no indenting, because text inside textarea is verbatim !-->
-<textarea id="Source" wrap="off" oninput="TextareaChanged();" onscroll="UpdateTextareaScroll();" onblur="Compile();" title="Ceci est le code de la machine de Turing. Voir la documentation plus bas pour les détails de la syntaxe.">
+                <div id="MachineProgramContainer">
+                    <div class="BoxTitle">Code des transitions de la Machine de Turing</div>
+                    <div id="MachineProgramBlock">
+                        <div id="MachineProgramBlock2">
+                            <div id="SourceContainer">
+                                <div id="SourceBackground">
+                                </div>
+                                <div id="tabackground">
+                                    <!-- no indenting, because text inside textarea is verbatim !-->
+                                    <textarea id="Source" wrap="off" oninput="TextareaChanged();" onscroll="UpdateTextareaScroll();" onblur="Compile();" title="Ceci est le code de la machine de Turing. Voir la documentation plus bas pour les détails de la syntaxe.">
 ; Chargez un programme avec le menu, ou écrivez le votre !
 </textarea>
-         </div>
-        </div>
-        <div id="SyntaxMsg"></div>
-       </div>
-      </div>
-     </div>
+                                </div>
+                            </div>
+                            <div id="SyntaxMsg"></div>
+                        </div>
+                    </div>
+                </div>
 
                 <div id="MachineControlBlock">
                     <div class="BoxTitle">
@@ -117,14 +119,17 @@
                     </div>
 
                     <div id="MachineButtonsBlock">
-                        <button id="RunButton" onclick="RunButton();" title="Commencer l'exécution de la machine">Lancer</button> <!-- &#x25b8; !--> <!-- Unicode 'play' symbol !-->
-                         <span title="Si cette option est activée, la simulation va aussi rapidement que possible (aussi vite que le peut votre ordinateur). Par défaut, les transitions sont lentes, pour voir ce qu'il se passe."><input type="checkbox" id="SpeedCheckbox" onclick="SpeedCheckbox();">Vitesse max</span><br>
+                        <button id="RunButton" onclick="RunButton();" title="Commencer l'exécution de la machine">Lancer</button>
+                        <!-- &#x25b8; !-->
+                        <!-- Unicode 'play' symbol !-->
+                        <span title="Si cette option est activée, la simulation va aussi rapidement que possible (aussi vite que le peut votre ordinateur). Par défaut, les transitions sont lentes, pour voir ce qu'il se passe."><input type="checkbox" id="SpeedCheckbox" onclick="SpeedCheckbox();">Vitesse max</span><br>
                         <button id="StopButton" onclick="StopButton();" disabled="disabled" title="Mettre en pause la machine durant son exécutioin">Pause</button><br>
                         <!-- &#x25fe; !-->
-                         <button id="UndoButton" onclick="Undo();" title="Annuler une étape de la machine (revenir en arrière)" style="float: right;">Annuler</button>
-                         <button id="StepButton" onclick="StepButton();" title="Effectuer une seule étape de la machine puis la mettre en pause">Étape</button><br>
+                        <button id="UndoButton" onclick="Undo();" title="Annuler une étape de la machine (revenir en arrière)" style="float: right;">Annuler</button>
+                        <button id="StepButton" onclick="StepButton();" title="Effectuer une seule étape de la machine puis la mettre en pause">Étape</button><br>
                         <!-- &#x25b8;&#x2759; !-->
-                         <button id="ResetButton" onclick="ResetButton();" title="Réinitialiser la machine et le ruban dans son état initial">Réinitialiser</button> <!-- &#x2759;&#x23ea; !-->
+                        <button id="ResetButton" onclick="ResetButton();" title="Réinitialiser la machine et le ruban dans son état initial">Réinitialiser</button>
+                        <!-- &#x2759;&#x23ea; !-->
 
                         <div id="InitialTapeDisplay" title="Ce mot sera écrit sur le ruban avant que la machine commence le calcul.">
                             Mot d'entrée :<input type="text" id="InitialInput" value="">
@@ -158,38 +163,39 @@
                         <div id="LoadBlock">
                             <a href="javascript:" onclick="$('#LoadMenu').slideToggle();" title="Charger un exemple pré-écrit de programme">Chargez un exemple</a>
                             <div id="LoadMenu">
-  <ul>
-      <li><a href="javascript:" onclick="LoadSampleProgram('palindrome', 'Détecteur de palindromes');">Détecteur de palindromes</a></li>
-      <li><a href="javascript:" onclick="LoadSampleProgram('binaryadd', 'Calcul de l\'addition binaire');">Addition binaire</a></li>
-      <li><a href="javascript:" onclick="LoadSampleProgram('binarymult', 'Calcul de la multiplication binaire');">Multiplication binaire</a></li>
-      <li><a href="javascript:" onclick="LoadSampleProgram('bin2dec', 'Conversion de binaire vers décimal');">Conversion de binaire vers décimal</a></li>
-      <li><a href="javascript:" onclick="LoadSampleProgram('turingsequence', 'Suite de Turing');">Suite de Turing</a></li>
-      <li><a href="javascript:" onclick="LoadSampleProgram('parentheses', 'Vérificateur de parenthèses');">Vérificateur de parenthèses</a></li>
-      <li><a href="javascript:" onclick="LoadSampleProgram('reversepolishboolean', 'Calculette binaire en Notation Polonaise Inversée');">Calculette binaire en Notation Polonaise Inversée</a></li>
-      <li><a href="javascript:" onclick="LoadSampleProgram('primetest', 'Test de primalité');">Test de primalité</a></li>
-      <li><a href="javascript:" onclick="LoadSampleProgram('4statebeaver', 'Castor affairé à 4 états');">Castor affairé à 4 états</a></li>
-      <li><a href="javascript:" onclick="LoadSampleProgram('universal', 'Machine de Turing Universelle');">Machine de Turing Universelle</a></li>
-  </ul>
-  <span style="font-size: x-small;"><a href="javascript:" onclick="$('#LoadMenu').hide();">[Fermer]</a></span>
+                                <ul>
+                                    <li><a href="javascript:" onclick="LoadSampleProgram('palindrome', 'Détecteur de palindromes');">Détecteur de palindromes</a></li>
+                                    <li><a href="javascript:" onclick="LoadSampleProgram('binaryadd', 'Calcul de l\'addition binaire');">Addition binaire</a></li>
+                                    <li><a href="javascript:" onclick="LoadSampleProgram('binarymult', 'Calcul de la multiplication binaire');">Multiplication binaire</a></li>
+                                    <li><a href="javascript:" onclick="LoadSampleProgram('bin2dec', 'Conversion de binaire vers décimal');">Conversion de binaire vers décimal</a></li>
+                                    <li><a href="javascript:" onclick="LoadSampleProgram('turingsequence', 'Suite de Turing');">Suite de Turing</a></li>
+                                    <li><a href="javascript:" onclick="LoadSampleProgram('parentheses', 'Vérificateur de parenthèses');">Vérificateur de parenthèses</a></li>
+                                    <li><a href="javascript:" onclick="LoadSampleProgram('reversepolishboolean', 'Calculette binaire en Notation Polonaise Inversée');">Calculette binaire en Notation Polonaise Inversée</a></li>
+                                    <li><a href="javascript:" onclick="LoadSampleProgram('primetest', 'Test de primalité');">Test de primalité</a></li>
+                                    <li><a href="javascript:" onclick="LoadSampleProgram('4statebeaver', 'Castor affairé à 4 états');">Castor affairé à 4 états</a></li>
+                                    <li><a href="javascript:" onclick="LoadSampleProgram('universal', 'Machine de Turing Universelle');">Machine de Turing Universelle</a></li>
+                                </ul>
+                                <span style="font-size: x-small;"><a href="javascript:" onclick="$('#LoadMenu').hide();">[Fermer]</a></span>
                             </div>
                         </div>
                         <br>
 
-                        <!--<li><a href="javascript:" onclick="LoadSampleProgram('error', 'Error machine');">Error</a></li>--><!-- for testing -->
+                        <!--<li><a href="javascript:" onclick="LoadSampleProgram('error', 'Error machine');">Error</a></li>-->
+                        <!-- for testing -->
 
                         <div id="LoadBlock2">
                             <a href="javascript:" onclick="$('#LoadMenu2').slideToggle();" title="Charger la correction d'une question de ce TP4 (ENSAI, 2017)">Correction TP #4 (ENSAI, 2017)</a>
                             <div id="LoadMenu2">
-  <ul>
-      <li><a href="javascript:" onclick="LoadSampleProgram('TP4--Q3-1', 'TP4 : Q3.1');">TP4 - Q3.1 (ENSAI, 2017)</a></li>
-      <li><a href="javascript:" onclick="LoadSampleProgram('TP4--Q3-2', 'TP4 : Q3.2');">TP4 - Q3.2 (ENSAI, 2017)</a></li>
-      <li><a href="javascript:" onclick="LoadSampleProgram('TP4--Q3-3', 'TP4 : Q3.3');">TP4 - Q3.3 (ENSAI, 2017)</a></li>
-      <li><a href="javascript:" onclick="LoadSampleProgram('TP4--Q3-4', 'TP4 : Q3.4');">TP4 - Q3.4 (ENSAI, 2017)</a></li>
-      <li><a href="javascript:" onclick="LoadSampleProgram('TP4--Q3-5', 'TP4 : Q3.5');">TP4 - Q3.5 (ENSAI, 2017), par décrémentations/incrémentations successives</a></li>
-      <li><a href="javascript:" onclick="LoadSampleProgram('TP4--Q3-5--Horner', 'TP4 : Q3.5 (par la méthode de Horner)');">TP4 - Q3.5 (ENSAI, 2017), par la méthode de Horner</a></li>
-      <li><a href="javascript:" onclick="LoadSampleProgram('TP4--Q3-6', 'TP4 : Q3.6');">TP4 - Q3.6 (ENSAI, 2017)</a></li>
-  </ul>
-  <span style="font-size: x-small;"><a href="javascript:" onclick="$('#LoadMenu2').hide();">[Fermer]</a></span>
+                                <ul>
+                                    <li><a href="javascript:" onclick="LoadSampleProgram('TP4--Q3-1', 'TP4 : Q3.1');">TP4 - Q3.1 (ENSAI, 2017)</a></li>
+                                    <li><a href="javascript:" onclick="LoadSampleProgram('TP4--Q3-2', 'TP4 : Q3.2');">TP4 - Q3.2 (ENSAI, 2017)</a></li>
+                                    <li><a href="javascript:" onclick="LoadSampleProgram('TP4--Q3-3', 'TP4 : Q3.3');">TP4 - Q3.3 (ENSAI, 2017)</a></li>
+                                    <li><a href="javascript:" onclick="LoadSampleProgram('TP4--Q3-4', 'TP4 : Q3.4');">TP4 - Q3.4 (ENSAI, 2017)</a></li>
+                                    <li><a href="javascript:" onclick="LoadSampleProgram('TP4--Q3-5', 'TP4 : Q3.5');">TP4 - Q3.5 (ENSAI, 2017), par décrémentations/incrémentations successives</a></li>
+                                    <li><a href="javascript:" onclick="LoadSampleProgram('TP4--Q3-5--Horner', 'TP4 : Q3.5 (par la méthode de Horner)');">TP4 - Q3.5 (ENSAI, 2017), par la méthode de Horner</a></li>
+                                    <li><a href="javascript:" onclick="LoadSampleProgram('TP4--Q3-6', 'TP4 : Q3.6');">TP4 - Q3.6 (ENSAI, 2017)</a></li>
+                                </ul>
+                                <span style="font-size: x-small;"><a href="javascript:" onclick="$('#LoadMenu2').hide();">[Fermer]</a></span>
                             </div>
                         </div>
 
@@ -197,33 +203,36 @@
                         <div id="LoadBlock3">
                             <a href="javascript:" onclick="$('#LoadMenu3').slideToggle();" title="Charger la correction d'une question de cet examen (ENSAI, 2016)">Correction Exam (ENSAI, 2016)</a>
                             <div id="LoadMenu3">
-  <ul>
-      <li><a href="javascript:" onclick="LoadSampleProgram('Exam2016__Q2-5', 'Examen : Q2.5');">Exam - Q2.5 (ENSAI, 2016)</a></li>
-      <li><a href="javascript:" onclick="LoadSampleProgram('Exam2016__Q2-7', 'Examen : Q2.7');">Exam - Q2.7 (ENSAI, 2016)</a></li>
-      <li><a href="javascript:" onclick="LoadSampleProgram('Exam2016__Q2-8', 'Examen : Q2.8');">Exam - Q2.8 (ENSAI, 2016)</a></li>
-      <li><a href="javascript:" onclick="LoadSampleProgram('Exam2016__Q2-9', 'Examen : Q2.9');">Exam - Q2.9 (ENSAI, 2016)</a></li>
-      <li><a href="https://arxiv.org/pdf/cs/0601050v1.pdf" title="Bonus - Je n'ai pas eu le temps de la corriger, faites le vous-même si vous voulez, à partir de ce document">Exam - Q2.10 (ENSAI, 2016)</a></li>
-  </ul>
-  <span style="font-size: x-small;"><a href="javascript:" onclick="$('#LoadMenu3').hide();">[Fermer]</a></span>
+                                <ul>
+                                    <li><a href="javascript:" onclick="LoadSampleProgram('Exam2016__Q2-5', 'Examen : Q2.5');">Exam - Q2.5 (ENSAI, 2016)</a></li>
+                                    <li><a href="javascript:" onclick="LoadSampleProgram('Exam2016__Q2-7', 'Examen : Q2.7');">Exam - Q2.7 (ENSAI, 2016)</a></li>
+                                    <li><a href="javascript:" onclick="LoadSampleProgram('Exam2016__Q2-8', 'Examen : Q2.8');">Exam - Q2.8 (ENSAI, 2016)</a></li>
+                                    <li><a href="javascript:" onclick="LoadSampleProgram('Exam2016__Q2-9', 'Examen : Q2.9');">Exam - Q2.9 (ENSAI, 2016)</a></li>
+                                    <li><a href="https://arxiv.org/pdf/cs/0601050v1.pdf" title="Bonus - Je n'ai pas eu le temps de la corriger, faites le vous-même si vous voulez, à partir de ce document">Exam - Q2.10 (ENSAI, 2016)</a></li>
+                                </ul>
+                                <span style="font-size: x-small;"><a href="javascript:" onclick="$('#LoadMenu3').hide();">[Fermer]</a></span>
                             </div>
                         </div>
 
-                        <!-- <br>
+                        <br>
                         <div id="LoadBlock4">
                             <a href="javascript:" onclick="$('#LoadMenu4').slideToggle();" title="Charger la correction d'une question de cet examen (ENSAI, 2017)">Correction Exam (ENSAI, 2017)</a>
                             <div id="LoadMenu4">
-  <ul>
-      <li><a href="javascript:" onclick="LoadSampleProgram('Exam2017__Q2-5', 'Examen : Q2.5');">Exam - Q2.5 (ENSAI, 2017)</a></li>
-      <li><a href="javascript:" onclick="LoadSampleProgram('Exam2017__Q2-7', 'Examen : Q2.7');">Exam - Q2.7 (ENSAI, 2017)</a></li>
-      <li><a href="javascript:" onclick="LoadSampleProgram('Exam2017__Q2-8', 'Examen : Q2.8');">Exam - Q2.8 (ENSAI, 2017)</a></li>
-      <li><a href="javascript:" onclick="LoadSampleProgram('Exam2017__Q2-9', 'Examen : Q2.9');">Exam - Q2.9 (ENSAI, 2017)</a></li>
-  </ul>
-  <span style="font-size: x-small;"><a href="javascript:" onclick="$('#LoadMenu3').hide();">[Fermer]</a></span>
+                                <ul>
+                                    <li><a href="javascript:" onclick="LoadSampleProgram('Exam2017__Q2-1', 'Examen : Q2.1');">Exam - Q2.1 (ENSAI, 2017)</a></li>
+                                    <li><a href="javascript:" onclick="LoadSampleProgram('Exam2017__Q2-3', 'Examen : Q2.3');">Exam - Q2.3 (ENSAI, 2017)</a></li>
+                                    <li><a href="javascript:" onclick="LoadSampleProgram('Exam2017__Q2-4', 'Examen : Q2.4');">Exam - Q2.4 (ENSAI, 2017)</a></li>
+                                    <li><a href="javascript:" onclick="LoadSampleProgram('Exam2017__Q2-5', 'Examen : Q2.5');">Exam - Q2.5 (ENSAI, 2017)</a></li>
+                                    <!-- <li><a href="javascript:" onclick="LoadSampleProgram('Exam2017__Q2-6', 'Examen : Q2.6');">Exam - Q2.6 (ENSAI, 2017)</a></li> -->
+                                </ul>
+                                <span style="font-size: x-small;"><a href="javascript:" onclick="$('#LoadMenu3').hide();">[Fermer]</a></span>
                             </div>
-                        </div> -->
+                        </div>
 
                         <br>
-                        <a href="javascript:" onclick="SaveToCloud();" title="Sauvegarder la machine actuelle dans les nuages, pour la partager ou la conserver (dans un favori par exemple). Utilise le service https://gist.github.com/">Sauvegarder dans les nuages</a> <!--...<a href="javascript:" onclick="testsave(true);">test ok</a>...<a href="javascript:" onclick="testsave(false);">test error</a>!--> <!-- for testing !-->
+                        <a href="javascript:" onclick="SaveToCloud();" title="Sauvegarder la machine actuelle dans les nuages, pour la partager ou la conserver (dans un favori par exemple). Utilise le service https://gist.github.com/">Sauvegarder dans les nuages</a>
+                        <!--...<a href="javascript:" onclick="testsave(true);">test ok</a>...<a href="javascript:" onclick="testsave(false);">test error</a>!-->
+                        <!-- for testing !-->
 
                         <div id="SaveStatus">
                             <div id="SaveStatusFg">
@@ -231,7 +240,8 @@
                             </div>
 
                             <div id="SaveStatusBg"></div>
-                        </div><!--<br><button id="DebugButton" onclick="x();">Debug</button><br>!-->
+                        </div>
+                        <!--<br><button id="DebugButton" onclick="x();">Debug</button><br>!-->
                     </div>
                 </div>
             </div>
@@ -240,27 +250,30 @@
 
     <div id="SyntaxInfo">
         <h2>Syntaxe :</h2>
-
         <ul>
             <li>Chaque ligne doit contenir un tuple de la forme suivante : <b>'<code>&lt;état courant&gt; &lt;symbole lu&gt; &lt;nouveau symbole&gt; &lt;direction&gt; &lt;nouvel état&gt;</code>'</b> (5 valeurs, séparées par un espace). Par exemple, '<code>q0 1 1 d q0</code>'.</li>
 
-            <li>Vous pouvez utiliser n'importe nombre nombre ou mot pour <b>les états</b> (<code>&lt;état courant&gt;</code> et <code>&lt;nouvel état&gt;</code>), e.g. <code>10, a, q1, état1</code>. Les étiquettes d'états sont sensibles aux majuscules. Par défaut, l'état initial est <code>q0</code>.</li>
+            <li>Vous pouvez utiliser n'importe nombre nombre ou mot pour <b>les états</b> (<code>&lt;état courant&gt;</code> et <code>&lt;nouvel état&gt;</code>), e.g. <code>10, a, q1, état1</code>. Les étiquettes d'états sont sensibles aux majuscules. Par
+                défaut, l'état initial est <code>q0</code>.</li>
 
-            <li>Vous pouvez utiliser n'importe quel caractère du clavier pour <b>les symboles</b> (<code>&lt;symbole lu&gt;</code> et <code>&lt;nouveau symbole&gt;</code>), ou le caractère spécial '<code>_</code>' pour représenter le symbole blanc (espace, et pas '<code>#</code>). Les symboles lus et écrits sont sensibles aux majuscules.</li>
+            <li>Vous pouvez utiliser n'importe quel caractère du clavier pour <b>les symboles</b> (<code>&lt;symbole lu&gt;</code> et <code>&lt;nouveau symbole&gt;</code>), ou le caractère spécial '<code>_</code>' pour représenter le symbole blanc (espace,
+                et pas '<code>#</code>). Les symboles lus et écrits sont sensibles aux majuscules.</li>
 
-            <li>La <b><code>&lt;direction&gt;</code></b> doit être '<code>g</code>', '<code>d</code>' ou '<code>*</code>', qui correspondent à la consigne 'aller à gauche' (gauche = '<code>g</code>'), 'aller à droite' (droite = '<code>d</code>') ou 'ne pas bouger', respectivement.</li>
+            <li>La <b><code>&lt;direction&gt;</code></b> doit être '<code>g</code>', '<code>d</code>' ou '<code>*</code>', qui correspondent à la consigne 'aller à gauche' (gauche = '<code>g</code>'), 'aller à droite' (droite = '<code>d</code>') ou 'ne pas
+                bouger', respectivement.</li>
 
             <li>Sur une ligne à part ou en fin de ligne, n'importe quoi après le symbole '<code>;</code>' est considéré comme un <b>commentaire</b>, et est ignoré. C'est une bonne idée de commenter votre code !</li>
 
-            <li>La machine <b>s'arrête</b> quand elle atteint n'importe quel état dont le nom commence par '<code>stop</code>', e.g., <code>stop-fin, stop-accepte</code> etc. Les états finaux sont considérés acceptants, pour un état final refusant, il faut <emph>bloquer</emph> la machine (i.e., plus aucune transition disponible).</li>
+            <li>La machine <b>s'arrête</b> quand elle atteint n'importe quel état dont le nom commence par '<code>stop</code>', e.g., <code>stop-fin, stop-accepte</code> etc. Les états finaux sont considérés acceptants, pour un état final refusant, il faut
+                <emph>bloquer</emph> la machine (i.e., plus aucune transition disponible).</li>
         </ul>
 
         <h2>Autres remarques :</h2>
-
         <ul>
-            <li>Le symbole '<code>*</code>' peut être utilisé comme un masque (<i>wildcard</i>) pour le <code>&lt;symbole courant&gt;</code> ou l'<code>&lt;état courant&gt;</code>, dans ce cas '<code>*</code>' signifie qu'il accepte <i>n'importe quel</i> symbole, ou <i>n'importe quel</i> état. Par exemple '<code>q1 * _ g q1</code>' peut correspondre à un effacement de n'importe quel symbole, ou '<code>* X 1 d *</code>' une substitution forcée de '<code>X</code>' en '<code>1</code>'.</li>
+            <li>Le symbole '<code>*</code>' peut être utilisé comme un masque (<i>wildcard</i>) pour le <code>&lt;symbole courant&gt;</code> ou l'<code>&lt;état courant&gt;</code>, dans ce cas '<code>*</code>' signifie qu'il accepte <i>n'importe quel</i>                symbole, ou <i>n'importe quel</i> état. Par exemple '<code>q1 * _ g q1</code>' peut correspondre à un effacement de n'importe quel symbole, ou '<code>* X 1 d *</code>' une substitution forcée de '<code>X</code>' en '<code>1</code>'.</li>
 
-            <li>Le symbole '<code>*</code>' peut aussi être utilisé comme <code>&lt;nouveau symbole&gt;</code> ou <code>&lt;nouvel état&gt;</code>, dans ce cas '<code>*</code>' signifie <b>"aucun changement"</b>. Cela permet d'éviter d'écrire de nombreuses transitions toutes similaires. Par exemple '<code>1 * * d 1</code>' plutôt que '<code>1 a a d 1</code>', '<code>1 b b d 1</code>', pour chaque lettre '<code>a</code>', '<code>b</code>'.</li>
+            <li>Le symbole '<code>*</code>' peut aussi être utilisé comme <code>&lt;nouveau symbole&gt;</code> ou <code>&lt;nouvel état&gt;</code>, dans ce cas '<code>*</code>' signifie <b>"aucun changement"</b>. Cela permet d'éviter d'écrire de nombreuses
+                transitions toutes similaires. Par exemple '<code>1 * * d 1</code>' plutôt que '<code>1 a a d 1</code>', '<code>1 b b d 1</code>', pour chaque lettre '<code>a</code>', '<code>b</code>'.</li>
 
             <li>Le symbole '<code>!</code>' peut être utilisé <i>à la fin</i> d'une ligne, pour mettre en place un <b>point d'arrêt</b>, e.g., '<code>1 a b d 2 !</code>'. La machine se mettre automatiquement en pause à chaque utilisation de cette transition.</li>
 
@@ -287,65 +300,75 @@
 
         <div id="AboutContentContainer">
             <div id="AboutContentTech" class="AboutContent">
-              <ul>
-                <li>Ce simulateur de machines de Turing est écrit en HTML et Javascript, et utilise la bibliothèque <a href="http://jquery.com">jQuery</a>.</li>
-                <li>Les machines sauvegardées sont stockées comme des GISTs <i>anonymes</i> sur le <a href="https://gist.github.com/">service de GIST de GitHub</a>.</li>
-                <li>Vous pouvez consulter tout le code source <a href="https://github.com/Naereen/jsTuring_fr">sur GitHub</a>.</li>
-                <li>Si vous êtes curieux, sachez qu'il est possible de construire des machines de Turing purement mécaniques, et pas seulement de les simuler avec un ordinateur. Par exemple, <a href="https://fr.wikipedia.org/wiki/Machine_de_Turing#R.C3.A9alisations_de_la_machine_de_Turing">voir cette liste</a>, <a href="http://rubens.ens-lyon.fr/fr">le projet RubENS de l'ENS de Lyon</a> ou encore <a href="http://www.lemonde.fr/sciences/article/2012/06/22/l-ordinateur-en-lego-inspire-par-alan-turing_1723058_1650684.html">cet article</a>.</li>
-              </ul>
+                <ul>
+                    <li>Ce simulateur de machines de Turing est écrit en HTML et Javascript, et utilise la bibliothèque <a href="http://jquery.com">jQuery</a>.</li>
+                    <li>Les machines sauvegardées sont stockées comme des GISTs <i>anonymes</i> sur le <a href="https://gist.github.com/">service de GIST de GitHub</a>.</li>
+                    <li>Vous pouvez consulter tout le code source <a href="https://github.com/Naereen/jsTuring_fr">sur GitHub</a>.</li>
+                    <li>Si vous êtes curieux, sachez qu'il est possible de construire des machines de Turing purement mécaniques, et pas seulement de les simuler avec un ordinateur. Par exemple, <a href="https://fr.wikipedia.org/wiki/Machine_de_Turing#R.C3.A9alisations_de_la_machine_de_Turing">voir cette liste</a>,
+                        <a href="http://rubens.ens-lyon.fr/fr">le projet RubENS de l'ENS de Lyon</a> ou encore <a href="http://www.lemonde.fr/sciences/article/2012/06/22/l-ordinateur-en-lego-inspire-par-alan-turing_1723058_1650684.html">cet article</a>.</li>
+                </ul>
             </div>
             <div id="AboutContentMail" class="AboutContent">
                 <ul>
-                  <li><a href="http://www.freelists.org/list/jsturing">Vous pouvez vous abonner à la liste de diffusion</a> (en anglais) pour recevoir des informations et les mises à jour de ce simulateur de machine de Turing (environ 1-2 courriels par an).</li>
-              </ul>
+                    <li><a href="http://www.freelists.org/list/jsturing">Vous pouvez vous abonner à la liste de diffusion</a> (en anglais) pour recevoir des informations et les mises à jour de ce simulateur de machine de Turing (environ 1-2 courriels par
+                        an).
+                    </li>
+                </ul>
             </div>
             <div id="AboutContentCopying" class="AboutContent">
-              <ul>
-                <li>Le code source de ce simulateur <a href="https://github.com/Naereen/jsTuring_fr">est disponible sur GitHub</a>, et il est <a href="https://lbesson.mit-license.org/">distribué sous la licence libre MIT</a>.</li>
-                <li>Vous êtes les bienvenus pour télécharger, copier, et adapter ce code à vos besoins, sous les conditions de la <a href="https://lbesson.mit-license.org/">licence MIT</a>.</li>
-                <li>Si vous faites quelque chose d'intéressant avec, n'hésitez pas à contacter l'auteur initial ou le traducteur.</li>
-              </ul>
+                <ul>
+                    <li>Le code source de ce simulateur <a href="https://github.com/Naereen/jsTuring_fr">est disponible sur GitHub</a>, et il est <a href="https://lbesson.mit-license.org/">distribué sous la licence libre MIT</a>.</li>
+                    <li>Vous êtes les bienvenus pour télécharger, copier, et adapter ce code à vos besoins, sous les conditions de la <a href="https://lbesson.mit-license.org/">licence MIT</a>.</li>
+                    <li>Si vous faites quelque chose d'intéressant avec, n'hésitez pas à contacter l'auteur initial ou le traducteur.</li>
+                </ul>
             </div>
             <div id="AboutContentOld" class="AboutContent">
-              <ul>
-                <li>La version anglaise du simulateur de machines de Turing est <a href="http://morphett.info/turing/">disponible ici</a>.</li>
-                <li>La version précédente est aussi <a href="http://morphett.info/turing/old/turing.html">sur le même site</a>.</li>
-              </ul>
+                <ul>
+                    <li>La version anglaise du simulateur de machines de Turing est <a href="http://morphett.info/turing/">disponible ici</a>.</li>
+                    <li>La version précédente est aussi <a href="http://morphett.info/turing/old/turing.html">sur le même site</a>.</li>
+                </ul>
             </div>
             <div id="AboutContentContact" class="AboutContent">
-              <ul>
-                <li>Par rapport au code : Veuillez envoyer toute question, suggestion, signalement de bogue, etc à <a href="http://morphett.info/">Anthony Morphett</a>, awmorp à gmail point com, ou <a href="https://github.com/awmorp/jsturing">via GitHub</a>.</li>
-                <li>Par rapport à la traduction uniquement : veuillez envoyer tout signalement de bogue à <a href="https://GitHub.com/Naereen/">Lilian Besson</a>, besson at crans point org, ou <a href="https://github.com/Naereen/jsTuring_fr">via GitHub</a>.</li>
-              </ul>
+                <ul>
+                    <li>Par rapport au code : Veuillez envoyer toute question, suggestion, signalement de bogue, etc à <a href="http://morphett.info/">Anthony Morphett</a>, awmorp à gmail point com, ou <a href="https://github.com/awmorp/jsturing">via GitHub</a>.</li>
+                    <li>Par rapport à la traduction uniquement : veuillez envoyer tout signalement de bogue à <a href="https://GitHub.com/Naereen/">Lilian Besson</a>, besson at crans point org, ou <a href="https://github.com/Naereen/jsTuring_fr">via GitHub</a>.</li>
+                </ul>
             </div>
         </div>
     </div>
 
     <div class="Signature">
-        -- <a href="http://morphett.info/">Anthony Morphett</a> - awmorp à gmail point com, pour <a href="https://github.com/awmorp/jsturing">le code initial</a><br>
-        -- <a href="https://GitHub.com/Naereen/">Lilian Besson</a> pour la <a href="https://github.com/Naereen/jsTuring_fr">traduction en français</a>.
+        -- <a href="http://morphett.info/">Anthony Morphett</a> - awmorp à gmail point com, pour <a href="https://github.com/awmorp/jsturing">le code initial</a><br> -- <a href="https://GitHub.com/Naereen/">Lilian Besson</a> pour la <a href="https://github.com/Naereen/jsTuring_fr">traduction en français</a>.
     </div>
 
     <div id="debugOuter" class="DebugClass">
         Débogage : <button id="ClearDebugButton" onclick="ClearDebug();">effacer</button>
         <pre id="debug">
-
 </pre>
     </div>
     <footer>
         <script type="text/javascript" defer="defer">
-            $(window).load(function(){
-            // Google Analytics
-            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-            ga('create', 'UA-38514290-17', 'naereen.github.io');
-            ga('send', 'pageview');
-            console.log("[GA] Sending with ID=UA-38514290-17, DOMAIN=naereen.github.io");
+            $(window).load(function() {
+                // Google Analytics
+                (function(i, s, o, g, r, a, m) {
+                    i['GoogleAnalyticsObject'] = r;
+                    i[r] = i[r] || function() {
+                        (i[r].q = i[r].q || []).push(arguments)
+                    }, i[r].l = 1 * new Date();
+                    a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                    a.async = 1;
+                    a.src = g;
+                    m.parentNode.insertBefore(a, m)
+                })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+                ga('create', 'UA-38514290-17', 'naereen.github.io');
+                ga('send', 'pageview');
+                console.log("[GA] Sending with ID=UA-38514290-17, DOMAIN=naereen.github.io");
             });
         </script>
-        <noscript><img alt="GA|Analytics" style="visibility: hidden; display: none;" src="https://ga-beacon.appspot.com/UA-38514290-17/jsTuring_fr/turing.html?pixel"/></noscript>
+        <noscript>
+            <img alt="GA|Analytics" style="visibility: hidden; display: none;" src="https://ga-beacon.appspot.com/UA-38514290-17/jsTuring_fr/turing.html?pixel"/>
+        </noscript>
     </footer>
 </body>
 </html>
