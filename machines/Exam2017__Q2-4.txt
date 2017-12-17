@@ -1,0 +1,41 @@
+; ENSAI - Cours de Calculabilité et Complexité
+; Machine de Turing - Examen 2017 - Q2.4
+; Utilisez ce code via le simulateur, à l'adresse https://naereen.github.io/jsTuring_fr/turing.html#Machine
+
+; Troisième machine
+
+; Entrée : deux mot binaires, a1...01b10..1
+; Sortie : a[n1..]b[n2..]c[n2..]
+; Exemple entrée : a101b010
+; Exemple sortie : a101b010c101
+
+; État q0 : on va aller tout à droite ajouter un premier c
+
+q0 _ c g qa
+q0 * * d q0
+
+; État qa : on retourne au premier a, x ou y
+qa a a d qtr
+qa x x d qtr
+qa y y d qtr
+qa * * g qa
+
+; État qtr : transforme 0 en x, 1 en y au début du mot de gauche
+qtr 0 x d qd0
+qtr 1 y d qd1
+qtr b b g qback
+qtr * * d qtr
+
+; État qd0, qd1 : et on va ensuite aller l'écrire à droite à la fin du mot
+qd0 _ 0 g qa
+qd0 * * d qd0
+qd1 _ 1 g qa
+qd1 * * d qd1
+
+; État qback : transforme x et y en 0 et 1
+qback x 0 g qback
+qback y 1 g qback
+qback a a d stop-fin
+
+; Astuce pour charger le ruban avec un mot initial intéressant.
+;$INITIAL_TAPE:a101b010

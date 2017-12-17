@@ -1,0 +1,144 @@
+; ENSAI - Cours de Calculabilité et Complexité
+; Machine de Turing - Examen 2017 - Q2.6
+; Utilisez ce code via le simulateur, à l'adresse https://naereen.github.io/jsTuring_fr/turing.html#Machine
+
+; Cinquième machine : modulo de deux nombres binaires
+; CONVENTION : bit faible à gauche
+
+; Entrée : deux mot binaires, a1...01b10..1
+; Sortie : a[n1..]b[n2..]c[n3..] où n3 = n1 mod n2
+
+; Exemple entrée : a101b010       : n1 = 101_2 = 5 n2 = 010_2 = 2
+; Exemple sortie : a101b010c1     : n3 = 1 = 1_2
+
+; Exemple entrée : a111b010       : n1 = 111_2 = 7 n2 = 110_2 = 3
+; Exemple sortie : a111b010c1     : n3 = 1 = 1_2
+
+; Exemple entrée : a010b101       : n1 = 010_2 = 2 et n2 = 101_2 = 5
+; Exemple sortie : a010b101c01    : n3 = 2 = 01_2
+
+; État q0 : on va aller tout à droite ajouter un premier c
+q0 _ c g qa
+q0 * * d q0
+
+; État qa : on retourne au premier a, x ou y
+qa a a d qtr
+qa x x d qtr
+qa y y d qtr
+qa * * g qa
+
+; État qtr : transforme 0 en x, 1 en y au début du mot de gauche
+qtr 0 x d qd0
+qtr 1 y d qd1
+qtr b b g qback
+qtr * * d qtr
+
+; État qd0, qd1 : et on va ensuite aller l'écrire à droite à la fin du mot
+qd0 _ 0 g qa
+qd0 * * d qd0
+qd1 _ 1 g qa
+qd1 * * d qd1
+
+; État qback : transforme x et y en 0 et 1
+qback x 0 g qback
+qback y 1 g qback
+qback a a d qbr
+
+; État qbr : retourne à droite vers qb
+qbr 0 0 d qbr
+qbr 1 1 d qbr
+qbr b b d q02
+
+; État q02 : on va aller tout à droite ajouter un e
+q02 _ e g qbl
+q02 * * d q02
+
+; État qbl : on retourne au premier b, x ou y
+qbl b b d qtr2
+qbl x x d qtr2
+qbl y y d qtr2
+qbl * * g qbl
+
+; État qtr2 : transforme 0 en x, 1 en y au début du mot de droite
+qtr2 0 x d qd02
+qtr2 1 y d qd12
+qtr2 c c g qback2
+qtr2 * * d qtr2
+
+; État qd02, qd12 : et on va ensuite aller l'écrire à droite à la fin du mot
+qd02 _ 0 g qbl
+qd02 * * d qd02
+qd12 _ 1 g qbl
+qd12 * * d qd12
+
+; État qback2 : transforme x et y en 0 et 1
+qback2 x 0 g qback2
+qback2 y 1 g qback2
+qback2 e e d qmd
+qback2 * * d qback2
+
+; État qmd : fait -1 sur le nombre binaire tout à droite (n2)
+qmd 1 0 g qc
+qmd 0 1 d qmd
+qmd _ _ g efface
+
+; État qc : retourne à gauche au c
+qc c c d qmg
+qc * * g qc
+
+; État qe : retourne à droite au e
+qe e e d qmd
+qe * * d qe
+
+; État qmg : fait -1 au nombre binaire entre c et e (n1)
+qmg 1 0 d qe
+qmg 0 1 d qmg
+qmg e e d findr  ; on a propagé la retenue au max donc n2 > n1
+
+; État efface : efface le dernier mot, le e et continue
+efface 1 _ g efface   ; force à ce que le dernier mot soit que des 1 !
+efface e _ g ctod
+
+ctod c d d q03
+ctod d d d q03
+ctod * * g ctod
+
+; État q03 : on va aller tout à droite ajouter un c
+q03 _ c g qdl
+q03 * * d q03
+
+; État qdl : on retourne au premier d, x ou y
+qdl d d d qtr3
+qdl x x d qtr3
+qdl y y d qtr3
+qdl * * g qdl
+
+; État qtr3 : transforme 0 en x, 1 en y au début du mot de droite
+qtr3 0 x d qd03
+qtr3 1 y d qd13
+qtr3 c c g qback3
+qtr3 * * d qtr3
+
+; État qd03, qd13 : et on va ensuite aller l'écrire à droite à la fin du mot
+qd03 _ 0 g qdl
+qd03 * * d qd03
+qd13 _ 1 g qdl
+qd13 * * d qd13
+
+; État qback3: transforme x et y en 0 et 1
+qback3 x 0 g qback3
+qback3 y 1 g qback3
+qback3 * * d q02
+
+; État findr : va jusqu'à la fin à droite
+findr * * d findr
+findr _ _ g effacedr
+
+; État effacedr : efface le dernier mot, le e, et remplace le résultat par 0
+effacedr c c d un0
+effacedr * _ g effacedr
+
+un0 _ 0 d stop-n2gtn1
+
+; Astuce pour charger le ruban avec un mot initial intéressant.
+;$INITIAL_TAPE:a101b010

@@ -1,0 +1,37 @@
+; ENSAI - Cours de Calculabilité et Complexité
+; Machine de Turing - Examen 2017 - Q2.1
+; Utilisez ce code via le simulateur, à l'adresse https://naereen.github.io/jsTuring_fr/turing.html#Machine
+
+; Première machine
+
+; Entrée : un mot binaire, 10..101...01
+; Sortie : un symbole a suivi du mot binaire non modifié
+; Exemple entrée : 1011101011
+; Exemple sortie : a1011101011
+
+; État q0
+q0 0 a d q1
+q0 1 a d q2
+
+; État q1
+q1 0 0 d q1
+q1 1 0 d q2
+q1 _ 0 g q3
+
+; État q2
+q2 0 1 d q1
+q2 1 1 d q2
+q2 _ 1 g q3
+
+; État q3
+q3 a a d stop-q4
+q3 0 0 g q3
+q3 1 1 g q3
+
+;; ASTUCE avec ce simulateur, on peut faire plus simplement
+;; si le ruban est bi-infini
+; q0 * * g q1
+; q1 _ a d half-q4
+
+; Astuce pour charger le ruban avec un mot initial intéressant.
+;$INITIAL_TAPE:101

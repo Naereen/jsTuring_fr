@@ -1,0 +1,50 @@
+; ENSAI - Cours de Calculabilité et Complexité
+; Machine de Turing - Examen 2017 - Q2.3
+; Utilisez ce code via le simulateur, à l'adresse https://naereen.github.io/jsTuring_fr/turing.html#Machine
+
+; Deuxième machine
+
+; Entrée : un mot binaire, 10..101...01
+; Sortie : un symbole a suivi du mot binaire non modifié
+; Exemple entrée : 101
+; Exemple sortie : axyxb101
+
+; État q0 : on écrit ce premier a
+q0 0 a d q1
+q0 1 a d q2
+
+; État q1 : on propage le premier 1
+q1 0 0 d q1
+q1 1 0 d q2
+q1 _ 0 d q3
+
+; État q2 : on propage le premier 0
+q2 0 1 d q1
+q2 1 1 d q2
+q2 _ 1 d q3
+
+; État q3 : on revient tout à gauche pour trouver le a
+q3 a a d q4
+q3 0 0 g q3
+q3 1 1 g q3
+q3 _ b g q3  ; on écrit ce premier b
+
+; État q4 : on transforme un symbole du mot
+q4 0 x d qd0
+q4 1 y d qd1
+
+; État qd0 : on va écrire un 0 à la fin du mot à droite
+qd0 _ 0 g ql
+qd0 * * d qd0
+
+; État qd1 : on va écrire un 1 à la fin du mot à droite
+qd1 _ 1 g ql
+qd1 * * d qd1
+
+; État ql : on retourne au début du reste du mot binaire
+ql x x d q4
+ql y y d q4
+ql * * g ql
+
+; Astuce pour charger le ruban avec un mot initial intéressant.
+;$INITIAL_TAPE:101
