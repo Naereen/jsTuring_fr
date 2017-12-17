@@ -56,36 +56,28 @@
             <div class="BoxTitle"><a href="#Machine">Ruban</a></div>
             <div id="MachineTape" class="MachineStatusBox" title="Ceci est le ruban de la machine de Turing. La position de la tête de lecture est indiquée par la cellule colorée, et par la flèche.">
                 <!-- the following pre elements must be on a single line with no whitespace between them !-->
-                <div id="RunningTapeDisplay">
-                    <div id="TapeValues"><pre id="LeftTape" class="tape"></pre>
-                        <div id="ActiveTapeArea"><pre id="ActiveTape" class="tape"> </pre>
-                            <div id="MachineHead">
-                                <div class="HeadTop"></div>
-                                <div class="HeadBody">Tête</div>
-                            </div>
-                        </div><pre id="RightTape" class="tape"></pre></div>
-                </div>
+                <div id="RunningTapeDisplay"><div id="TapeValues"><pre id="LeftTape" class="tape"></pre><div id="ActiveTapeArea"><pre id="ActiveTape" class="tape"> </pre><div id="MachineHead"><div class="HeadTop"></div><div class="HeadBody">Tête</div></div></div><pre id="RightTape" class="tape"></pre></div></div>
             </div>
         </div>
 
         <div id="MachineMiddleSection">
             <div id="MachineStatusMsgWrapper">
                 <pre id="MachineStatusMsgText">
-</pre>
+      </pre>
                 <div id="MachineStatusMsgBg"></div>
             </div>
 
             <div id="MachineStateContainer" class="MachineStatusContainer" title="Ceci indique l'état courant de la machine.">
                 <div class="BoxTitle">État courant</div>
                 <div id="MachineState" class="MachineStatusBox">
-                    -
+- 
                 </div>
             </div>
 
             <div id="MachineStepsContainer" class="MachineStatusContainer" title="Ceci est le nombre d'étapes effectuées depuis le début du calcul (nombre total de transitions empruntées)">
                 <div class="BoxTitle">Étapes</div>
                 <div id="MachineSteps" class="MachineStatusBox">
-                    -
+- 
                 </div>
             </div>
         </div>
@@ -102,8 +94,8 @@
                                 <div id="SourceBackground">
                                 </div>
                                 <div id="tabackground">
-                                    <!-- no indenting, because text inside textarea is verbatim !-->
-                                    <textarea id="Source" wrap="off" oninput="TextareaChanged();" onscroll="UpdateTextareaScroll();" onblur="Compile();" title="Ceci est le code de la machine de Turing. Voir la documentation plus bas pour les détails de la syntaxe.">
+<!-- no indenting, because text inside textarea is verbatim !-->
+<textarea id="Source" wrap="off" oninput="TextareaChanged();" onscroll="UpdateTextareaScroll();" onblur="Compile();" title="Ceci est le code de la machine de Turing. Voir la documentation plus bas pour les détails de la syntaxe.">
 ; Chargez un programme avec le menu, ou écrivez le votre !
 </textarea>
                                 </div>
@@ -344,6 +336,7 @@
     <div id="debugOuter" class="DebugClass">
         Débogage : <button id="ClearDebugButton" onclick="ClearDebug();">effacer</button>
         <pre id="debug">
+
 </pre>
     </div>
     <footer>
