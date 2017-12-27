@@ -49,7 +49,7 @@ Toutes les explications nécessaires sont fournies dans cette page.
 ## :scroll: Licence ? [![GitHub license](https://img.shields.io/github/license/Naereen/jsTuring_fr.svg)](https://github.com/Naereen/jsTuring_fr/blob/master/LICENSE)
 Distribué sous la [licence libre MIT](https://lbesson.mit-license.org/) (fichier [LICENSE](LICENSE) en anglais).
 
-© 2016 [Anthony Morphett](http://morphett.info/) ([@awmorp](https://GitHub.com/awmorp/)) pour tout, et © 2016 [Lilian Besson](https://GitHub.com/Naereen) pour la traduction.
+© 2016 [Anthony Morphett](http://morphett.info/) ([@awmorp](https://GitHub.com/awmorp/)) pour tout, et © 2016-2018 [Lilian Besson](https://GitHub.com/Naereen) pour la traduction.
 
 [![Maintenance](https://img.shields.io/badge/Maintenu%3F-oui-green.svg)](https://GitHub.com/Naereen/jsTuring_fr/graphs/commit-activity)
 [![Demandez moi n'importe quoi !](https://img.shields.io/badge/Demandez%20moi-n'%20importe%20quoi-1abc9c.svg)](https://GitHub.com/Naereen/ama.fr)
