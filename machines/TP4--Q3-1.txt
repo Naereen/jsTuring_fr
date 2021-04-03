@@ -12,7 +12,7 @@
 ; D'abord, on lit sans modifier tous les 1, vers la droite
 q0 1 1 d q0
 
-; Ensuite, on a finit de lire, on écrit un 1 de plus, on accepte
+; Ensuite, on a fini de lire, on écrit un 1 de plus, on accepte
 q0 _ 1 * halt-accepte
 
 
